@@ -6,14 +6,12 @@ This application will facilitate the adoption of stray pets by connecting potent
 ## Target Users
 - **Animal lovers** looking to adopt a pet
 - **Shelter staff** managing pet listings and applications
-- **Volunteers** assisting with the adoption process
 - **Adopters** who want to share their pets' progress and stories
 - **Community members** who find stray pets or need to transfer their own
 
 ## Project Interest
 This project is of particular interest to me because:
 - I am passionate about animal welfare and want to help reduce the number of stray pets.
-- It allows me to apply my Java programming skills to create a meaningful solution.
 - I believe technology can play a crucial role in improving the adoption process and connecting pets with loving homes.
 
 ## Key Features
@@ -21,17 +19,14 @@ This project is of particular interest to me because:
 - **Application Submission:** A streamlined process for users to apply for adoption.
 - **Status Tracking:** Users can track the status of their application.
 - **Adopter Updates:** Adopters can upload photos and updates on their pets’ well-being, fostering a sense of community.
-- **Trust Verification:** A system to assess the suitability of adopters through background checks, references, and questionnaires, ensuring a safe environment for the animals.
 - **Stray Reporting:** Users can upload information about stray pets they find, allowing shelters to respond quickly and provide assistance.
 - **Pet Transfer Requests:** Users can submit requests to transfer their pets to new homes due to unforeseen circumstances, ensuring pets are rehomed responsibly.
 
 ## User Stories
-- I want to...
+- As a user, I want to create a account and login.
+- As a user, I want to view a list of pets available for adoption.
+- As a user, I want to search for pets by breed, size, age, and location.
+- As a user, I want to handin an application to adopt a pet.
+- As a organization member, I want to add new pets to the available wait for adoption pets.
+- As a user, I want to upload photos and my adopt stories and share my progess with the community.
 
-
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
-
-An example of text with **bold** and *italic* fonts.  
