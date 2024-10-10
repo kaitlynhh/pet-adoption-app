@@ -12,57 +12,55 @@ public class Pet {
 
     // Constructor
     public Pet(int id, String name, int age, String gender, String species, String breed) {
-        // TODO: contructor stub
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.species = species;
+        this.breed = breed;
+        this.adoptionStatus = "available";
     }
 
     //getters
     public int getId() {
-        //stub
-        return 0;
+        return id;
     }
     
     public String getPetName() {
-        // stub
-        return "";
+        return name;
     }
 
     public int getPetAge() {
-        //stub
-        return 0;
+        return age;
     }
 
     public String getGender() {
-        //stub
-        return "";
+        return gender;
     }
 
     public String getSpecies() {
-        //stub
-        return "";
+        return species;
     }
 
     public String getBreed() {
-        //stub
-        return "";
+        return breed;
     }
 
     // EFFECTS: return "Available" or "Adopted"
     public String getAdoptionStatus() {
-        //stub
-        return "";
+        return adoptionStatus;
     }
 
     // REQUIRES: pet must be available.
     // MODIFIES: this
-    // EFFECTS: change the adoption status of the pet.
+    // EFFECTS: change the adoption status of the pet into adopted.
     public void markAsAdopted() {
-        // stub
+        this.adoptionStatus = "adopted";
     }
 
     // EFFECTS: return true if the pet is available for adoption.
     public boolean isAvailable() {
-        //stub
-        return true;
+        return this.adoptionStatus.equals("available");
     }
 
     //setters
