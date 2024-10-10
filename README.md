@@ -23,10 +23,9 @@ This project is of particular interest to me because:
 - **Pet Transfer Requests:** Users can submit requests to transfer their pets to new homes due to unforeseen circumstances, ensuring pets are rehomed responsibly.
 
 ## User Stories
-- As a user, I want to create a account and login.
 - As a user, I want to view a list of pets available for adoption.
-- As a user, I want to search for pets by breed, size, age, and location.
 - As a user, I want to handin an application to adopt a pet.
 - As a organization member, I want to add new pets to the available wait for adoption pets.
 - As a user, I want to upload photos and my adopt stories and share my progess with the community.
+
 
