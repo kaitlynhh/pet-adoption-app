@@ -5,12 +5,13 @@ public class Pet {
     private int id;
     private String name;
     private int age;
+    private String gender;
     private String species;
     private String breed;
     private String adoptionStatus;
 
     // Constructor
-    public Pet(int id, String name, int age, String species, String breed) {
+    public Pet(int id, String name, int age, String gender, String species, String breed) {
         // TODO: contructor stub
     }
 
@@ -28,6 +29,11 @@ public class Pet {
     public int getPetAge() {
         //stub
         return 0;
+    }
+
+    public String getGender() {
+        //stub
+        return "";
     }
 
     public String getSpecies() {
