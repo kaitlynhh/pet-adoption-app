@@ -14,7 +14,7 @@ public class PetTest {
 
     @BeforeEach
     void runBefore() {
-        testPet = new Pet(1, "Otto",2, "Dog", "Golden");
+        testPet = new Pet(1, "Otto",2, "female", "Dog", "Golden");
 
     }
 
@@ -23,6 +23,7 @@ public class PetTest {
         assertEquals(1, testPet.getId());
         assertEquals("Otto", testPet.getPetName());
         assertEquals(2, testPet.getPetAge());
+        assertEquals("female", testPet.getGender());
         assertEquals("Dog", testPet.getSpecies());
         assertEquals("Golden", testPet.getBreed());
         assertEquals("available", testPet.getAdoptionStatus());
