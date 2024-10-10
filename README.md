@@ -22,5 +22,5 @@ This project is of particular interest to me because:
 ## User Stories
 - As a user, I want to view a list of pets available for adoption.
 - As a user, I want to handin an application to adopt a pet.
-- As a organization member, I want to add new pets to the available wait for adoption pets.
+- As a staff, I want to update application status.
 - As a user, I want to upload my adopt stories and share my progess with the community.
