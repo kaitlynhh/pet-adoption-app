@@ -63,26 +63,6 @@ public class Pet {
         return this.adoptionStatus.equals("available");
     }
 
-    //setters
-    public void setName(String name) {
-        this.name = name; 
-    }
-
-    public void setAge(int age) { 
-        this.age = age; 
-    }
-
-    public void setSpecies(String species) {
-        this.species = species; 
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed; 
-    }
-
-    public void setStatus(String status) {
-        this.adoptionStatus = status;
-    }
 }
 
 
