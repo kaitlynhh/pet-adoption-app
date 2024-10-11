@@ -13,7 +13,7 @@ public class UserTest {
     @BeforeEach
     void runBefore() {
         testUser = new User(1, "Alpha", "Adopter");
-        application = new AdoptApplication();
+        application = new AdoptApplication(1,1,1);
     }
 
     @Test
