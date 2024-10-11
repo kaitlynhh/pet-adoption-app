@@ -13,8 +13,8 @@ public class ShelterTest {
     @BeforeEach
     void runBefore() {
         testShelter = new Shelter();
-        dog = new Pet(1, "Kumo", 3, "Male", "dog", "Labrador");
-        cat = new Pet(2, "Otto", 2, "Female", "cat", "Birman");
+        dog = new Pet("Kumo", "Male", "dog", "Labrador");
+        cat = new Pet("Otto", "Female", "cat", "Birman");
     }
 
     @Test
@@ -31,6 +31,14 @@ public class ShelterTest {
         assertEquals(2, testShelter.getPets().size());
         assertEquals(dog, testShelter.getPets().get(0));
         assertEquals(cat, testShelter.getPets().get(1));
+    }
+
+    @Test
+    void testGetpetByName() {
+        assertEquals(null, testShelter.getPetByName("Kumo"));
+        testShelter.addPet(dog);
+        assertEquals(dog, testShelter.getPetByName("Kumo"));
+        assertEquals(null, testShelter.getPetByName("Bob"));
     }
 
 }
