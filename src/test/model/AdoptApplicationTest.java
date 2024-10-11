@@ -10,15 +10,14 @@ public class AdoptApplicationTest {
 
     @BeforeEach
     void runBefore() {
-        testApplication = new AdoptApplication(1,2,3);
+        testApplication = new AdoptApplication("Alpha","Otto");
 
     }
 
     @Test
     void testConstructor() {
-        assertEquals(1, testApplication.getApid());
-        assertEquals(2, testApplication.getUserid());
-        assertEquals(3, testApplication.getPetid());
+        assertEquals("Alpha", testApplication.getUsername());
+        assertEquals("Otto", testApplication.getPetname());
         assertEquals("pending", testApplication.getStatus());
     }
 

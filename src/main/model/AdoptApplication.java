@@ -1,32 +1,30 @@
 package model;
 
-// Creates an adoption application
+// Creates an adoption application that user can submit to apply for adopting pets, and staff can approve or reject it.
 public class AdoptApplication {
-    private int apid;
-    private int userid;
-    private int petid;
+    private String username;
+    private String petname;
     private String status; //pending? submitted? approved? rejected?
 
     //Constructor, an initial application with pending status
-    public AdoptApplication(int apid, int userid, int petid) {
-        this.apid = apid;
-        this.userid = userid;
-        this.petid = petid;
+    public AdoptApplication(String username, String petname) {
+        this.username = username;
+        this.petname = petname;
         this.status = "pending";
     }
 
-    public int getApid() {
-        return apid;
+
+    // EFFECTS: return the user id.
+    public String getUsername() {
+        return username;
     }
 
-    public int getUserid() {
-        return userid;
+    // EFFECTS: return the pet id.
+    public String getPetname() {
+        return petname;
     }
 
-    public int getPetid() {
-        return petid;
-    }
-
+    // EFFECTS: return the application status.
     public String getStatus() {
         return status;
     }
