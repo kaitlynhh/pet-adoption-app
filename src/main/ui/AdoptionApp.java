@@ -159,23 +159,29 @@ public class AdoptionApp {
 
     private void uploadAdoptStory() {
         System.out.println("\n--- Upload Adopt Story ---");
-        // System.out.print("Enter your user ID: ");
-        // int userId = scanner.nextInt();
+        if (currentUser.getAdoptedPets().isEmpty()) {
+            System.out.println("You haven't adopted any pets.");
+            return;
+        }
 
+        System.out.println("Write your adoption story: ");
         scanner.nextLine();
-        System.out.print("Enter your adopt story: ");
         String story = scanner.nextLine();
+        currentUser.addAdoptStory(story);
+        System.out.println("Yout adoption story has been uploaded successfully!");
+    
+
     }
 
     private void reportStrayPet() {
-        System.out.println("\n--- Add a Stray Pet ---");
-        System.out.print("Enter pet name: ");
+        System.out.println("\n--- Add a Stray Pet to Our Shelter---");
+        System.out.print("Enter pet name(Give him/her a cute name!): ");
     String petName = scanner.next();
 
     System.out.print("Enter pet type (e.g., Dog, Cat): ");
     String petSpecies = scanner.next();
 
-    System.out.print("Enter pet gender: ");
+    System.out.print("Enter pet gender:(female? male?) ");
     String petGender = scanner.next();
 
     System.out.print("Enter pet breed: ");
@@ -185,6 +191,7 @@ public class AdoptionApp {
     shelter.addPet(strayPet);
 
     System.out.println("Stray pet " + petName + " has been added to the shelter.");
+    System.out.println("\n Thank you for reporting!");
 }
 
 
