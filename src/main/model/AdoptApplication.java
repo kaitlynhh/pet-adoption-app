@@ -7,36 +7,35 @@ public class AdoptApplication {
     private int petid;
     private String status; //pending? submitted? approved? rejected?
 
-    //Constructor
+    //Constructor, an initial application with pending status
     public AdoptApplication(int apid, int userid, int petid) {
-        //TODO: constructor
+        this.apid = apid;
+        this.userid = userid;
+        this.petid = petid;
+        this.status = "pending";
     }
 
     public int getApid() {
-        //TODO
-        return 0;
+        return apid;
     }
 
     public int getUserid() {
-        //TODO
-        return 0;
+        return userid;
     }
 
     public int getPetid() {
-        //TODO
-        return 0;
+        return petid;
     }
 
     public String getStatus() {
-        //TODO
-        return "";
+        return status;
     }
 
     // REQUIRES: application not null
     // MODIFIES: this
     // EFFECTS: updates application status with the new status provided
     public void updateStatus(String newStatus) {
-        //stub
+        this.status = newStatus;
     }
 
 }
