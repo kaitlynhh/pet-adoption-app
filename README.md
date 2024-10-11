@@ -1,7 +1,7 @@
 # Stray Pets Adoption Application Project
 
 ## Overview
-This application will facilitate the adoption of stray pets by connecting potential adopters with local shelters and rescue organizations. Users will be able to browse available pets, submit adoption applications, and receive updates on their application status. Additionally, adopters can upload updates on their adopted pets’ status, helping to create a community of responsible pet owners. Users can also report stray pets they encounter and request assistance for pet transfers.
+This application will facilitate the adoption of stray pets by connecting potential adopters with local shelters and rescue organizations. Users will be able to browse available pets, submit adoption applications, and receive updates on their application status. Additionally, adopters can upload updates on their adopted pets’ status, helping to create a community of responsible pet owners. To maximum animal welfare, we want to keep track of all the animals in our sheltor, whether it's adopted or not, so we don't remove animal profile from our terminal. Users can also report stray pets they encounter.
 
 ## Target Users
 - **Animal lovers** looking to adopt a pet
@@ -23,5 +23,5 @@ This project is of particular interest to me because:
 - As a user, I want to view a list of pets available for adoption.
 - As a user, I want to handin an application to adopt a pet.
 - As a user, I want to view all my applications.
-- As a user, I want to add pets to the sheltor when I spotted a stray animal.
+- As a user, I want to add pets to the shelter when I spotted a stray animal.
 - As a user, I want to upload my adopt stories and share my progess with the community.
