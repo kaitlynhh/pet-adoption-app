@@ -22,14 +22,12 @@ public class User {
     }
 
     public String getName() {
-        //TODO: constructor
-        return "";
+        return name;
     }
 
     // get the role, may be "Adopter" or "staff"
     public String getRole() {
-        //TODO: stub
-        return "";
+        return role;
     }
 
     public List<AdoptApplication> getApplications() {
@@ -41,7 +39,7 @@ public class User {
     // MODIFIES: this
     // EFFECTS: add the application to user's list of application
     public void submitApplication(AdoptApplication application) {
-        //TODO: stub
+        this.applications.add(application);
     }
 
 
