@@ -2,37 +2,26 @@ package model;
 
 // Creates a pet and it's available for adoption.
 public class Pet {
-    private int id;
     private String name;
-    private int age;
     private String gender;
     private String species;
     private String breed;
     private String adoptionStatus;
 
-    // Constructor
-    public Pet(int id, String name, int age, String gender, String species, String breed) {
-        this.id = id;
+    // Constructor: construct a pet with available adoption status.
+    public Pet(String name, String gender, String species, String breed) {
         this.name = name;
-        this.age = age;
         this.gender = gender;
         this.species = species;
         this.breed = breed;
         this.adoptionStatus = "available";
     }
 
-    //getters
-    public int getId() {
-        return id;
-    }
     
     public String getPetName() {
         return name;
     }
 
-    public int getPetAge() {
-        return age;
-    }
 
     public String getGender() {
         return gender;
