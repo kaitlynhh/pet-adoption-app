@@ -46,6 +46,9 @@ public class AdoptionApp {
             return scanner.nextInt();
         }
 
+        // display the main menu of this application, 
+        // the user can select 1-5 or 0 by entering these numbers, 
+        // each number represent a single function of thie application
         private void displayMenu() {
             System.out.println("\n--- Stray Pets Adoption ---");
             System.out.println("1. View Available Pets");
@@ -163,24 +166,6 @@ public class AdoptionApp {
     }
     }
 
-
-    private void uploadAdoptStory() {
-        System.out.println("\n--- Upload Adopt Story ---");
-        if (currentUser.getAdoptedPets().isEmpty()) {
-            System.out.println("You haven't adopted any pets.");
-            return;
-        }
-
-        System.out.println("Write your adoption story: ");
-        scanner.nextLine();
-        String story = scanner.nextLine();
-        currentUser.addAdoptStory(story);
-        System.out.println("Yout adoption story has been uploaded successfully!");
-    
-
-    }
-
-    
     private void reportStrayPet() {
         System.out.println("\n--- Add a Stray Pet to Our Shelter---");
         System.out.print("Enter pet name(Give him/her a cute name!): ");
@@ -201,6 +186,26 @@ public class AdoptionApp {
     System.out.println("Stray pet " + petName + " has been added to the shelter.");
     System.out.println("\n Thank you for reporting!");
 }
+
+
+    private void uploadAdoptStory() {
+        System.out.println("\n--- Upload Adopt Story ---");
+        if (currentUser.getAdoptedPets().isEmpty()) {
+            System.out.println("You haven't adopted any pets.");
+            return;
+        }
+
+        System.out.println("Write your adoption story: ");
+        scanner.nextLine();
+        String story = scanner.nextLine();
+        currentUser.addAdoptStory(story);
+        System.out.println("Yout adoption story has been uploaded successfully!");
+    
+
+    }
+
+
+
 
 
     
