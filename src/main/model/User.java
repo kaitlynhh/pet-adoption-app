@@ -3,18 +3,21 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 // Create a user for the system
 public class User {
     private String name;
     private String role;
     private List<AdoptApplication> applications;
     private List<String> stories;
+    private List<Pet> adoptedPets;
 
     public User(String name, String role) {
         this.name = name;
         this.role = role;
         this.applications = new ArrayList<>();
         this.stories = new ArrayList<>();
+        this.adoptedPets = new ArrayList<>();
     }
 
 
@@ -33,6 +36,10 @@ public class User {
 
     public List<String> getStories() {
         return stories;
+    }
+
+    public List<Pet> getAdoptedPets() {
+        return adoptedPets;
     }
 
     // submit a adoption application for a pet

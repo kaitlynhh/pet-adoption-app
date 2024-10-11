@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.Pet;
+
 
 public class Shelter {
     private List<Pet> pets;

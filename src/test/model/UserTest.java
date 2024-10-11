@@ -22,6 +22,7 @@ public class UserTest {
         assertEquals("Adopter", testUser.getRole());
         assertTrue(testUser.getApplications().isEmpty());
         assertTrue(testUser.getStories().isEmpty());
+        assertTrue(testUser.getAdoptedPets().isEmpty());
     }
 
     @Test
