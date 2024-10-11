@@ -140,6 +140,7 @@ public class AdoptionApp {
     } else {
         currentUser.submitApplication(application);
         application.updateStatus("submitted");
+        currentUser.addAdoptedPets(selectedPet);
         System.out.println("Your application for " + selectedPet.getPetName() + " has been submitted.");
     }
     }
