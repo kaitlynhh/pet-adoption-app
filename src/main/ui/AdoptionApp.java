@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class AdoptionApp {
     private Pet otto;
+    private Pet bob;
+    private Pet boots;
     private  Shelter shelter;
     private User currentUser;
     private  Scanner scanner;
@@ -87,8 +89,12 @@ public class AdoptionApp {
 
     private void init() {
         otto = new Pet("Otto", "Male", "Dog", "Golden");
+        bob = new Pet("Bob", "Male", "cat", "Birman");
+        boots = new Pet("Boots", "Female", "Dog", "Corgi");
         shelter = new Shelter();
         shelter.addPet(otto);
+        shelter.addPet(bob);
+        shelter.addPet(boots);
         scanner = new Scanner(System.in);
         scanner.useDelimiter("\r?\n|\r");
     }

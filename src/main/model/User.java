@@ -58,6 +58,13 @@ public class User {
         this.stories.add(story);
     }
 
+    // add a pet to user's adopted list
+    // MODIFIES: this
+    // EFFECTS: add a new adopted stray pet to the user's list of adopted pets
+    public void addAdoptedPets(Pet pet) {
+        this.adoptedPets.add(pet);
+    }
+
 
 
 

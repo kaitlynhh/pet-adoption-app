@@ -8,12 +8,15 @@ import org.junit.jupiter.api.Test;
 public class UserTest {
     private User testUser;
     private AdoptApplication application;
+    private Pet otto;
 
 
     @BeforeEach
     void runBefore() {
         testUser = new User("Alpha", "Adopter");
         application = new AdoptApplication("Alpha","Otto");
+        otto = new Pet("Otto", "Male", "Dog", "Golden");
+
     }
 
     @Test
@@ -41,6 +44,13 @@ public class UserTest {
         testUser.addAdoptStory("I celebrate my dog's birthday today!");
         assertEquals(2, testUser.getStories().size());
         assertEquals("I celebrate my dog's birthday today!", testUser.getStories().get(1));
+    }
+
+    @Test
+    void testAddAdoptedPet() {
+        testUser.addAdoptedPets(otto);
+        assertEquals(1, testUser.getAdoptedPets().size());
+        assertEquals(otto, testUser.getAdoptedPets().get(0));
     }
     
 }
