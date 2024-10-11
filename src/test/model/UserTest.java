@@ -22,6 +22,7 @@ public class UserTest {
         assertEquals("Alpha", testUser.getName());
         assertEquals("Adopter", testUser.getRole());
         assertTrue(testUser.getApplications().isEmpty());
+        assertTrue(testUser.getStories().isEmpty());
     }
 
     @Test
@@ -30,6 +31,16 @@ public class UserTest {
         assertEquals(1, testUser.getApplications().size());
         assertEquals(application, testUser.getApplications().get(0));
 
+    }
+
+    @Test
+    void testAddAdoptStory() {
+        testUser.addAdoptStory("I take my dog to the dog park today!");
+        assertEquals(1, testUser.getStories().size());
+        assertEquals("I take my dog to the dog park today!", testUser.getStories().get(0));
+        testUser.addAdoptStory("I celebrate my dog's birthday today!");
+        assertEquals(2, testUser.getStories().size());
+        assertEquals("I celebrate my dog's birthday today!", testUser.getStories().get(1));
     }
     
 }
