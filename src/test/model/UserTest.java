@@ -12,13 +12,12 @@ public class UserTest {
 
     @BeforeEach
     void runBefore() {
-        testUser = new User(1, "Alpha", "Adopter");
-        application = new AdoptApplication(1,1,1);
+        testUser = new User("Alpha", "Adopter");
+        application = new AdoptApplication("Alpha","Otto");
     }
 
     @Test
     void testConstructor() {
-        assertEquals(1, testUser.getId());
         assertEquals("Alpha", testUser.getName());
         assertEquals("Adopter", testUser.getRole());
         assertTrue(testUser.getApplications().isEmpty());

@@ -5,23 +5,18 @@ import java.util.List;
 
 // Create a user for the system
 public class User {
-    private int id;
     private String name;
     private String role;
     private List<AdoptApplication> applications;
     private List<String> stories;
 
-    public User(int id, String name, String role) {
-        this.id = id;
+    public User(String name, String role) {
         this.name = name;
         this.role = role;
         this.applications = new ArrayList<>();
         this.stories = new ArrayList<>();
     }
 
-    public int getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
