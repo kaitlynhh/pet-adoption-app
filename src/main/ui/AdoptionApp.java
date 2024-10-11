@@ -180,6 +180,7 @@ public class AdoptionApp {
 
     }
 
+    
     private void reportStrayPet() {
         System.out.println("\n--- Add a Stray Pet to Our Shelter---");
         System.out.print("Enter pet name(Give him/her a cute name!): ");

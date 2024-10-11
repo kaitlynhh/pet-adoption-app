@@ -21,6 +21,7 @@ public class User {
     }
 
 
+    // return the user's username
     public String getName() {
         return name;
     }
@@ -30,14 +31,17 @@ public class User {
         return role;
     }
 
+    // EFFECTS: get all the applications the user submitted
     public List<AdoptApplication> getApplications() {
         return applications;
     }
 
+    // EFFECTS: get all stories the user has uploaded
     public List<String> getStories() {
         return stories;
     }
 
+    // EFFECTS: get all adopted pets
     public List<Pet> getAdoptedPets() {
         return adoptedPets;
     }
