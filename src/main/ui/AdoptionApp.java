@@ -76,6 +76,7 @@ public class AdoptionApp {
                 break;
             case 4:
                 reportStrayPet();
+                break;
             case 5:
                 uploadAdoptStory();
                 break;
