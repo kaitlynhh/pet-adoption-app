@@ -27,7 +27,7 @@ public class Shelter {
     // MODIFIES:
     // EFFECTS:
     public Pet getPetByName(String name) {
-        for(Pet pet : this.getPets()) {
+        for (Pet pet : this.getPets()) {
             if (pet.getPetName().equals(name)) {
                 return pet;
             }

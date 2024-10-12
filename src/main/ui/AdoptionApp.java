@@ -41,55 +41,56 @@ public class AdoptionApp {
 
 
 
-        private int getUserChoice() {
-            System.out.println("Enter Your Choice:");
-            return scanner.nextInt();
-        }
+    private int getUserChoice() {
+        System.out.println("Enter Your Choice:");
+        return scanner.nextInt();
+    }
 
         // display the main menu of this application, 
         // the user can select 1-5 or 0 by entering these numbers, 
         // each number represent a single function of thie application
-        private void displayMenu() {
-            System.out.println("\n--- Stray Pets Adoption ---");
-            System.out.println("1. View Available Pets");
-            System.out.println("2. Submit an Adoption Application");
-            System.out.println("3. View Your Applications");
-            System.out.println("4. Report a Stray Pet");
-            System.out.println("5. Upload Adopt Story");
-            System.out.println("0. Exit");
-            System.out.print("Enter your choice: ");
-        }
+    private void displayMenu() {
+        System.out.println("\n--- Stray Pets Adoption ---");
+        System.out.println("1. View Available Pets");
+        System.out.println("2. Submit an Adoption Application");
+        System.out.println("3. View Your Applications");
+        System.out.println("4. Report a Stray Pet");
+        System.out.println("5. Upload Adopt Story");
+        System.out.println("0. Exit");
+        System.out.print("Enter your choice: ");
+    }
 
 
 
-        private void handleUserChoice(int choice){
+    private void handleUserChoice(int choice) {
 
-            switch (choice) {
-                case 1:
+        switch (choice) {
+            case 1:
                 viewAvailablePets();
                 break;
-                case 2:
+            case 2:
                 submitAdoptionApplication();
                 break;
-                case 3:
+            case 3:
                 viewUserApplications();
                 break;
-                case 4:
+            case 4:
                 reportStrayPet();
-                case 5:
+            case 5:
                 uploadAdoptStory();
                 break;
-                case 0:
+            case 0:
                 keepGoing = false;
                 System.out.println("Quit Application.");
                 break;
 
-                default:
+            default:
                 System.out.println("Invalid choice, try again please");
-            }
         }
+    }
     
 
+        //
     private void init() {
         otto = new Pet("Otto", "Male", "Dog", "Golden");
         bob = new Pet("Bob", "Male", "cat", "Birman");
@@ -108,9 +109,10 @@ public class AdoptionApp {
             System.out.println("No pets are currently available for adoption");
         } else {
             for (Pet pet : shelter.getPets()) {
-                if (pet.getAdoptionStatus() == "available");
-                System.out.println(pet.getPetName() + " " + pet.getSpecies() + " "
-                + pet.getBreed() + " " + pet.getAdoptionStatus());
+                if (pet.getAdoptionStatus() == "available") {
+                    System.out.println(pet.getPetName() + " " + pet.getSpecies() + " "
+                            + pet.getBreed() + " " + pet.getAdoptionStatus());
+                }
             }
         }
     }
@@ -119,33 +121,33 @@ public class AdoptionApp {
     private void submitAdoptionApplication() {
         System.out.println("\n--- Submit Adoption Application ---");
 
-    if (shelter.getPets().isEmpty()) {
-        System.out.println("No pets are available for adoption.");
-    }
+        if (shelter.getPets().isEmpty()) {
+            System.out.println("No pets are available for adoption.");
+        }
 
     // System.out.println("Enter your user name: ");
     // String userName = scanner.next();
-    String userName = currentUser.getName();
+        String userName = currentUser.getName();
 
-    System.out.println("Enter the name of the pet you want to adopt among these available pets:");
-    for (Pet pet : shelter.getPets()) {
-        if (pet.isAvailable()) {
-            System.out.println(pet.getPetName());
+        System.out.println("Enter the name of the pet you want to adopt among these available pets:");
+        for (Pet pet : shelter.getPets()) {
+            if (pet.isAvailable()) {
+                System.out.println(pet.getPetName());
+            }
         }
-    }
 
-    String petName = scanner.next();
-    Pet selectedPet = shelter.getPetByName(petName);
-    AdoptApplication application = new AdoptApplication(userName, petName);
+        String petName = scanner.next();
+        Pet selectedPet = shelter.getPetByName(petName);
+        AdoptApplication application = new AdoptApplication(userName, petName);
 
-    if (selectedPet == null) {
-        System.out.println("Invalid pet ID.");
-    } else {
-        currentUser.submitApplication(application);
-        application.updateStatus("submitted");
-        currentUser.addAdoptedPets(selectedPet);
-        System.out.println("Your application for " + selectedPet.getPetName() + " has been submitted.");
-    }
+        if (selectedPet == null) {
+            System.out.println("Invalid pet ID.");
+        } else {
+            currentUser.submitApplication(application);
+            application.updateStatus("submitted");
+            currentUser.addAdoptedPets(selectedPet);
+            System.out.println("Your application for " + selectedPet.getPetName() + " has been submitted.");
+        }
     }
 
 
@@ -157,35 +159,36 @@ public class AdoptionApp {
         // scanner.nextLine();
         System.out.println("\n--- Applications for " + userName + "---");
 
-    if (currentUser.getApplications().isEmpty()) {
-        System.out.println("You haven't submitted any adoption applications.");
-    } else {
-        for (AdoptApplication application : currentUser.getApplications()) {
-            System.out.println("Application for Pet: " + application.getPetname() + " (Status: " + application.getStatus() + ")");
+        if (currentUser.getApplications().isEmpty()) {
+            System.out.println("You haven't submitted any adoption applications.");
+        } else {
+            for (AdoptApplication application : currentUser.getApplications()) {
+                System.out.println("Application for Pet: " + application.getPetname()
+                        + " (Status: " + application.getStatus() + ")");
+            }
         }
-    }
     }
 
     private void reportStrayPet() {
         System.out.println("\n--- Add a Stray Pet to Our Shelter---");
         System.out.print("Enter pet name(Give him/her a cute name!): ");
-    String petName = scanner.next();
+        String petName = scanner.next();
 
-    System.out.print("Enter pet type (e.g., Dog, Cat): ");
-    String petSpecies = scanner.next();
+        System.out.print("Enter pet type (e.g., Dog, Cat): ");
+        String petSpecies = scanner.next();
 
-    System.out.print("Enter pet gender:(female? male?) ");
-    String petGender = scanner.next();
+        System.out.print("Enter pet gender:(female? male?) ");
+        String petGender = scanner.next();
 
-    System.out.print("Enter pet breed: ");
-    String petBreed = scanner.next();
+        System.out.print("Enter pet breed: ");
+        String petBreed = scanner.next();
 
-    Pet strayPet = new Pet(petName, petGender, petSpecies, petBreed);
-    shelter.addPet(strayPet);
+        Pet strayPet = new Pet(petName, petGender, petSpecies, petBreed);
+        shelter.addPet(strayPet);
 
-    System.out.println("Stray pet " + petName + " has been added to the shelter.");
-    System.out.println("\n Thank you for reporting!");
-}
+        System.out.println("Stray pet " + petName + " has been added to the shelter.");
+        System.out.println("\n Thank you for reporting!");
+    }
 
 
     private void uploadAdoptStory() {
