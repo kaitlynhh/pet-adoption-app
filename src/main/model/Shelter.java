@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//
 public class Shelter {
     private List<Pet> pets;
 
@@ -12,6 +12,7 @@ public class Shelter {
         this.pets = new ArrayList<>();
     }
 
+    // EFFECTS: return all the pets in the shelter
     public List<Pet> getPets() {
         return pets;
     }
@@ -23,9 +24,10 @@ public class Shelter {
         pets.add(pet);
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    
+    // MODIFIES: this
+    // EFFECTS: return a pet if we can find a pet have the given name,
+    //          return null if we cannot find
     public Pet getPetByName(String name) {
         for (Pet pet : this.getPets()) {
             if (pet.getPetName().equals(name)) {

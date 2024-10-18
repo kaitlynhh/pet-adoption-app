@@ -17,20 +17,23 @@ public class Pet {
         this.adoptionStatus = "available";
     }
 
-    
+    // EFFECTS: return the pet's name.
     public String getPetName() {
         return name;
     }
 
 
+    // EFFECTS: return the pet's gender.
     public String getGender() {
         return gender;
     }
 
+    // EFFECTS: return the pet's species.
     public String getSpecies() {
         return species;
     }
 
+    // EFFECTS: return the pet's breed.
     public String getBreed() {
         return breed;
     }
