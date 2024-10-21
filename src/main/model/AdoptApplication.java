@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Creates an adoption application that user can submit to apply for adopting pets, and staff can approve or reject it.
-public class AdoptApplication {
+public class AdoptApplication implements Writable{
     private String username;
     private String petname;
     private String status; //pending? submitted? approved? rejected?
@@ -34,6 +37,17 @@ public class AdoptApplication {
     // EFFECTS: updates application status with the new status provided
     public void updateStatus(String newStatus) {
         this.status = newStatus;
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("username", username);
+        json.put("petname", petname);
+        json.put("status", status);
+        return json;
+        // throw new UnsupportedOperationException("Unimplemented method 'toJson'");
     }
 
 }

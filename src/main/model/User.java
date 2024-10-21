@@ -3,9 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 
 // Create a user for the system
-public class User {
+public class User implements Writable{
     private String name;
     private String role;
     private List<AdoptApplication> applications;
@@ -68,6 +72,27 @@ public class User {
     public void addAdoptedPets(Pet pet) {
         this.adoptedPets.add(pet);
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("applications", applicationsToJson());
+        return json;
+        // throw new UnsupportedOperationException("Unimplemented method 'toJson'");
+    }
+
+    // EFFECTS: returns this users applications as a JSON array
+    private JSONArray applicationsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (AdoptApplication application : applications) {
+            jsonArray.put(application.toJson());
+        }
+        return jsonArray;
+    }
+
+
 
 
 
