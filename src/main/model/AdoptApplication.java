@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // Creates an adoption application that user can submit to apply for adopting pets, and staff can approve or reject it.
-public class AdoptApplication implements Writable{
+public class AdoptApplication implements Writable {
     private String username;
     private String petname;
     private String status; //pending? submitted? approved? rejected?

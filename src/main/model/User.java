@@ -9,7 +9,7 @@ import persistence.Writable;
 
 
 // Create a user for the system
-public class User implements Writable{
+public class User implements Writable {
     private String name;
     private String role;
     private List<AdoptApplication> applications;
