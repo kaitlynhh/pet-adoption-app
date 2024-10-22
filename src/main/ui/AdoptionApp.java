@@ -6,6 +6,8 @@ import model.Shelter;
 import model.User;
 import java.util.Scanner;
 
+// Provides the main interface for the stray pets adoption app,
+// It manages user interactions and displays the function
 public class AdoptionApp {
     private Pet otto;
     private Pet bob;
@@ -15,6 +17,8 @@ public class AdoptionApp {
     private  Scanner scanner;
     private boolean keepGoing;
 
+    // Constructs an AdoptionApp instance and initialize our sheltor
+    // and input scanner for user
     public AdoptionApp() {
         this.shelter = new Shelter();
         this.scanner = new Scanner(System.in); // String command = null;
@@ -22,6 +26,8 @@ public class AdoptionApp {
         begin();
     }
 
+    // EFFECTS: starts the application, enters the main application loop,
+    // displays the main menu 
     public void begin() {
         System.out.println("Welcome to Stray Pets Adoption App!");
         init();
@@ -40,15 +46,16 @@ public class AdoptionApp {
     }
 
 
-
+    // REQUIRES: the user enters an integer
+    // EFFECTS: return the user's choice as an integer
     private int getUserChoice() {
         System.out.println("Enter Your Choice:");
         return scanner.nextInt();
     }
 
-        // display the main menu of this application, 
-        // the user can select 1-5 or 0 by entering these numbers, 
-        // each number represent a single function of thie application
+    // display the main menu of this application, 
+    // the user can select 1-5 or 0 by entering these numbers, 
+    // each number represent a single function of thie application
     private void displayMenu() {
         System.out.println("\n--- Stray Pets Adoption ---");
         System.out.println("1. View Available Pets");
@@ -61,7 +68,8 @@ public class AdoptionApp {
     }
 
 
-
+    // REQUIRES: choice in [1,5] or 0
+    // EFFECTS: handles the user's choice by finding corresponding functionality
     private void handleUserChoice(int choice) {
 
         switch (choice) {
@@ -91,7 +99,7 @@ public class AdoptionApp {
     }
     
 
-        //
+    // EFFECTS: initializes our chelter with pets already exists
     private void init() {
         otto = new Pet("Otto", "Male", "Dog", "Golden");
         bob = new Pet("Bob", "Male", "cat", "Birman");
@@ -104,6 +112,8 @@ public class AdoptionApp {
         scanner.useDelimiter("\r?\n|\r");
     }
 
+    // EFFECTS: displays he list of pets available for adoption,
+    //          if no such pets, print no pets are currently available
     private void viewAvailablePets() {
         System.out.println("\n--- Available Pets ---");
         if (shelter.getPets().isEmpty()) {
@@ -119,6 +129,7 @@ public class AdoptionApp {
     }
 
 
+    // EFFECTS: allows the user to submit an adoption application for pet
     private void submitAdoptionApplication() {
         System.out.println("\n--- Submit Adoption Application ---");
 
@@ -151,7 +162,7 @@ public class AdoptionApp {
         }
     }
 
-
+    // EFFECTS: displays the user's applications and status
     private void viewUserApplications() {
         System.out.println("\n--- My Adoption Applications ---");
         // System.out.println("Plese Enter you username to view applications:");
@@ -170,6 +181,8 @@ public class AdoptionApp {
         }
     }
 
+    // EFFECTS: allows the user to report a stray cat to our shelter
+    //          and add it to our available pets
     private void reportStrayPet() {
         System.out.println("\n--- Add a Stray Pet to Our Shelter---");
         System.out.print("Enter pet name(Give him/her a cute name!): ");
@@ -192,6 +205,7 @@ public class AdoptionApp {
     }
 
 
+    // EFFECTS: allows the user to upload the stories and we will add it to our available stories
     private void uploadAdoptStory() {
         System.out.println("\n--- Upload Adopt Story ---");
         if (currentUser.getAdoptedPets().isEmpty()) {
@@ -207,13 +221,6 @@ public class AdoptionApp {
     
 
     }
-
-
-
-
-
-    
-
 
     
     
