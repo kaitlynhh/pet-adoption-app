@@ -1,0 +1,16 @@
+{
+    "applications": [
+        {
+            "username": "Lars",
+            "petname": "Otto",
+            "status": "pending"
+        },
+        {
+            "username": "Lars",
+            "petname": "Bob",
+            "status": "pending"
+        }
+    ],
+    "name": "Lars",
+    "role": "adopter"
+}
