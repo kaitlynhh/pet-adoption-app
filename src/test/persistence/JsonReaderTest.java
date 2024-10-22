@@ -31,6 +31,7 @@ public class JsonReaderTest extends JsonTest {
         try {
             User user = reader.read();
             assertEquals("Lars", user.getName());
+            assertEquals("Adopter", user.getRole());
             assertEquals(0, user.getApplications().size());
         } catch (IOException e) {
             fail("Couldn't read from file");
@@ -42,11 +43,11 @@ public class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("./data/testReaderGeneralUser.json");
         try {
             User user = reader.read();
-            assertEquals("Adopter", user.getName());
+            assertEquals("Lars", user.getName());
             List<AdoptApplication> applications = user.getApplications();
             assertEquals(2, applications.size());
-            checkApplication("adopter", "Otto", "submitted", applications.get(0));
-            checkApplication("Adopter", "Bob", "submitted", applications.get(1));
+            checkApplication("Lars", "Otto", "pending", applications.get(0));
+            checkApplication("Lars", "Bob", "pending", applications.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
