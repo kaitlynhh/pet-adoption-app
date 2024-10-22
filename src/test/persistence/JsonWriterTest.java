@@ -3,7 +3,7 @@ package persistence;
 import model.User;
 import model.AdoptApplication;
 
-import org.junit.experimental.categories.Category;
+// import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
