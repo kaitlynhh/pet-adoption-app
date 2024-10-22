@@ -42,21 +42,21 @@ public class JsonReader {
 
     // EFFECTS: parses workroom from JSON object and returns it
     private User parseUser(JSONObject jsonObject) {
-        // String name = jsonObject.getString("name");
-        // String role = jsonObject.getString("role");
-        // User user = new User(name, role);
-        // addApplications(user, jsonObject);
-        return new User("Lars", "adopter");
+        String name = jsonObject.getString("name");
+        String role = jsonObject.getString("role");
+        User user = new User(name, role);
+        addApplications(user, jsonObject);
+        return user;
     }
 
     // MODIFIES: user
     // EFFECTS: parses thingies from JSON object and adds them to workroom
     private void addApplications(User user, JSONObject jsonObject) {
-        // JSONArray jsonArray = jsonObject.getJSONArray("applications");
-        // for (Object json : jsonArray) {
-        //     JSONObject nextApplication = (JSONObject) json;
-        //     addApplication(user, nextApplication);
-        // }
+        JSONArray jsonArray = jsonObject.getJSONArray("applications");
+        for (Object json : jsonArray) {
+            JSONObject nextApplication = (JSONObject) json;
+            addApplication(user, nextApplication);
+        }
     }
 
     // MODIFIES: user
