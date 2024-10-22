@@ -3,12 +3,12 @@
         {
             "username": "Lars",
             "petname": "Otto",
-            "status": "pending"
+            "status": "submitted"
         },
         {
             "username": "Lars",
             "petname": "Bob",
-            "status": "pending"
+            "status": "submitted"
         }
     ],
     "name": "Lars",

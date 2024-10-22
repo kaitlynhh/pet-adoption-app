@@ -5,12 +5,12 @@
         {
             "petname": "Otto",
             "username": "Lars",
-            "status": "pending"
+            "status": "submitted"
         },
         {
             "petname": "Bob",
             "username": "Lars",
-            "status": "pending"
+            "status": "submitted"
         }
     ]
 }

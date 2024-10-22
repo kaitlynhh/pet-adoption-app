@@ -32,6 +32,7 @@ public class UserTest {
     void testSubmitAp() {
         testUser.submitApplication(application);
         assertEquals(1, testUser.getApplications().size());
+        application.updateStatus("submitted");
         assertEquals(application, testUser.getApplications().get(0));
 
     }

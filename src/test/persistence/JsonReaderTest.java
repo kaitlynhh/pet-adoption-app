@@ -46,8 +46,8 @@ public class JsonReaderTest extends JsonTest {
             assertEquals("Lars", user.getName());
             List<AdoptApplication> applications = user.getApplications();
             assertEquals(2, applications.size());
-            checkApplication("Lars", "Otto", "pending", applications.get(0));
-            checkApplication("Lars", "Bob", "pending", applications.get(1));
+            checkApplication("Lars", "Otto", "submitted", applications.get(0));
+            checkApplication("Lars", "Bob", "submitted", applications.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

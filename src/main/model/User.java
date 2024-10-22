@@ -56,6 +56,7 @@ public class User implements Writable {
     // EFFECTS: add the application to user's list of application
     public void submitApplication(AdoptApplication application) {
         this.applications.add(application);
+        application.updateStatus("submitted");
     }
 
     // upload an adopt story
