@@ -77,6 +77,7 @@ public class User implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
+        json.put("role", role);
         json.put("applications", applicationsToJson());
         return json;
         // throw new UnsupportedOperationException("Unimplemented method 'toJson'");
