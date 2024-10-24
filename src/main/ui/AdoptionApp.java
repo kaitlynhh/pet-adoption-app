@@ -4,11 +4,18 @@ import model.AdoptApplication;
 import model.Pet;
 import model.Shelter;
 import model.User;
+import persistence.JsonWriter;
+import persistence.JsonReader;
+import persistence.Writable;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // Provides the main interface for the stray pets adoption app,
 // It manages user interactions and displays the function
 public class AdoptionApp {
+    private static final String JSON_STORE = "./data/myApplications.json";
     private Pet otto;
     private Pet bob;
     private Pet boots;
@@ -16,6 +23,8 @@ public class AdoptionApp {
     private User currentUser;
     private  Scanner scanner;
     private boolean keepGoing;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // Constructs an AdoptionApp instance and initialize our sheltor
     // and input scanner for user
@@ -23,6 +32,8 @@ public class AdoptionApp {
         this.shelter = new Shelter();
         this.scanner = new Scanner(System.in); // String command = null;
         this.keepGoing = true;
+        this.jsonWriter = new JsonWriter(JSON_STORE);
+        this.jsonReader = new JsonReader(JSON_STORE);
         begin();
     }
 
@@ -31,6 +42,12 @@ public class AdoptionApp {
     public void begin() {
         System.out.println("Welcome to Stray Pets Adoption App!");
         init();
+
+        System.out.println("Do you want to load your applications from file? (yes/no)");
+        String loadChoice = scanner.next();
+        if (loadChoice.equalsIgnoreCase("yes")) {
+            loadUserData();
+        }
         System.out.println("Please enter your username: ");
         String userName = scanner.next();
         System.out.println("Are you an adopter or a staff? (Please enter 'adopter' or 'staff')");
@@ -42,6 +59,8 @@ public class AdoptionApp {
             int choice = getUserChoice();
             handleUserChoice(choice);
         }
+
+        saveUserData();
         System.out.println("Thank you for using the Stray Pets Adoption App");
     }
 
@@ -222,6 +241,27 @@ public class AdoptionApp {
 
     }
 
+    // EFFECTS: saves the current user data to file
+    private void saveUserData() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(currentUser);
+            jsonWriter.close();
+            System.out.println("Your data has been saved successfully!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Sorry, we're unable to write to file: " + JSON_STORE);
+        }
+    }
     
+
+    // EFFECTS: loads user data from file
+    private void loadUserData() {
+        try {
+            currentUser = jsonReader.read();
+            System.out.println("Applications loaded successfully!");
+        } catch (IOException e) {
+            System.out.println("Sorry, we have error loading applications from file: " + JSON_STORE);
+        }
+    }
     
 }
