@@ -265,7 +265,8 @@ public class AdoptionApp {
         }
     }
 
-    // EFFECTS:
+    // EFFECTS: Asks the user if they wants to save their data, if yes, save the data,
+    // if no, quit the application.
     private void promptSaveBeforeExit() {
         System.out.println("Do you want to save your applications before exiting?(yes/no)");
         String choice = scanner.next();
