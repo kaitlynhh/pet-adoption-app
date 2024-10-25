@@ -62,7 +62,7 @@ public class AdoptionApp {
             handleUserChoice(choice);
         }
 
-        saveUserData();
+        // saveUserData();
         System.out.println("Thank you for using the Stray Pets Adoption App");
     }
 
@@ -110,8 +110,7 @@ public class AdoptionApp {
                 uploadAdoptStory();
                 break;
             case 0:
-                keepGoing = false;
-                System.out.println("Quit Application.");
+                promptSaveBeforeExit();
                 break;
 
             default:
@@ -264,6 +263,19 @@ public class AdoptionApp {
             System.out.println("Sorry, we have error loading applications from file: " + JSON_STORE);
             init();
         }
+    }
+
+    // EFFECTS:
+    private void promptSaveBeforeExit() {
+        System.out.println("Do you want to save your applications before exiting?(yes/no)");
+        String choice = scanner.next();
+
+        if (choice.equalsIgnoreCase("yes")) {
+            saveUserData();
+        }
+
+        keepGoing = false;
+        System.out.println("Quit Application.");
     }
     
 }
