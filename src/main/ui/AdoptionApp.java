@@ -6,10 +6,10 @@ import model.Shelter;
 import model.User;
 import persistence.JsonWriter;
 import persistence.JsonReader;
-import persistence.Writable;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 // Provides the main interface for the stray pets adoption app,
@@ -28,7 +28,7 @@ public class AdoptionApp {
 
     // Constructs an AdoptionApp instance and initialize our sheltor
     // and input scanner for user
-    public AdoptionApp() {
+    public AdoptionApp() throws FileNotFoundException{
         this.shelter = new Shelter();
         this.scanner = new Scanner(System.in); // String command = null;
         this.keepGoing = true;
@@ -47,12 +47,14 @@ public class AdoptionApp {
         String loadChoice = scanner.next();
         if (loadChoice.equalsIgnoreCase("yes")) {
             loadUserData();
+        } else {
+            // init();
+            System.out.println("Please enter your username: ");
+            String userName = scanner.next();
+            System.out.println("Are you an adopter or a staff? (Please enter 'adopter' or 'staff')");
+            String userRole = scanner.next();
+            currentUser = new User(userName, userRole);
         }
-        System.out.println("Please enter your username: ");
-        String userName = scanner.next();
-        System.out.println("Are you an adopter or a staff? (Please enter 'adopter' or 'staff')");
-        String userRole = scanner.next();
-        currentUser = new User(userName, userRole);
 
         while (keepGoing) {
             displayMenu();
@@ -154,10 +156,9 @@ public class AdoptionApp {
 
         if (shelter.getPets().isEmpty()) {
             System.out.println("No pets are available for adoption.");
+            return;
         }
 
-    // System.out.println("Enter your user name: ");
-    // String userName = scanner.next();
         String userName = currentUser.getName();
 
         System.out.println("Enter the name of the pet you want to adopt among these available pets:");
@@ -172,7 +173,7 @@ public class AdoptionApp {
         AdoptApplication application = new AdoptApplication(userName, petName);
 
         if (selectedPet == null) {
-            System.out.println("Invalid pet ID.");
+            System.out.println("Invalid pet name.");
         } else {
             currentUser.submitApplication(application);
             application.updateStatus("submitted");
@@ -261,6 +262,7 @@ public class AdoptionApp {
             System.out.println("Applications loaded successfully!");
         } catch (IOException e) {
             System.out.println("Sorry, we have error loading applications from file: " + JSON_STORE);
+            init();
         }
     }
     
