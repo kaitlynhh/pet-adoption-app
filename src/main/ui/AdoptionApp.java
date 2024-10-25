@@ -9,7 +9,6 @@ import persistence.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
 // Provides the main interface for the stray pets adoption app,
@@ -28,7 +27,7 @@ public class AdoptionApp {
 
     // Constructs an AdoptionApp instance and initialize our sheltor
     // and input scanner for user
-    public AdoptionApp() throws FileNotFoundException{
+    public AdoptionApp() throws FileNotFoundException {
         this.shelter = new Shelter();
         this.scanner = new Scanner(System.in); // String command = null;
         this.keepGoing = true;
