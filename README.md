@@ -28,4 +28,4 @@ This project is of particular interest to me because:
 - As a user, when I select the quit option from the application menu, I want to be reminded to save my applications to
   file and have the option to do so or not.
 - As a user, when I start the application, I want to be given the option too load my applications from file.
-- As a user, I want to upload my adopt stories and share my progess with the community.
+
