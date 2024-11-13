@@ -11,6 +11,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
 // Provides the main interface for the stray pets adoption app,
 // It manages user interactions and displays the function
 public class AdoptionApp {
