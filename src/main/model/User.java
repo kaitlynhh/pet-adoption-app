@@ -94,10 +94,5 @@ public class User implements Writable {
         return jsonArray;
     }
 
-
-
-
-
-
 }
 
