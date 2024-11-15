@@ -1,4 +1,4 @@
-# Stray Pets Adoption Application Project 🐶
+# Stray Pets Adoption Application Project
 
 ## Overview
 This application will facilitate the adoption of stray pets by connecting potential adopters with local shelters and rescue organizations. Users will be able to browse available pets, submit adoption applications, and receive updates on their application status. Additionally, adopters can upload updates on their adopted pets’ status, helping to create a community of responsible pet owners. To maximum animal welfare, we want to keep track of all the animals in our sheltor, whether it's adopted or not, so we don't remove animal profile from our terminal. Users can also report stray pets they encounter.
