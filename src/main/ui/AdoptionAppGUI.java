@@ -167,5 +167,5 @@ public class AdoptionAppGUI extends JFrame {
             }
         }
     }
-    
+
 }
