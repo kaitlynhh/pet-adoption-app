@@ -207,7 +207,7 @@ public class AdoptionApp {
         System.out.print("Enter pet name(Give him/her a cute name!): ");
         String petName = scanner.next();
 
-        System.out.print("Enter pet type (e.g., Dog, Cat): ");
+        System.out.print("Enter pet type (e.g. Dog, Cat): ");
         String petSpecies = scanner.next();
 
         System.out.print("Enter pet gender:(female? male?) ");

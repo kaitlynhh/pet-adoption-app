@@ -18,6 +18,11 @@ import java.io.IOException;
 
 public class AdoptionAppGUI extends JFrame {
     private static final String JSON_STORE = "./data/myApplications.json";
+    private static int WIDTH = 600;
+    private static int HEIGHT = 400;
+    private ImageIcon usersetupImage;
+    private JLabel imageAsLabel;
+    private JPanel setupPanel;
     private Shelter shelter;
     private User currentUser;
     private JsonReader reader;
@@ -27,11 +32,12 @@ public class AdoptionAppGUI extends JFrame {
     private JTextArea displayArea;
     private JTextField field;
     private JButton submitButton;
+    private JButton backToMenuButton;
 
     // constructor - set up main GUI window
     public AdoptionAppGUI() throws FileNotFoundException {
         setTitle("Stray Pets Adoption App");
-        setSize(600, 500);
+        setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         shelter = new Shelter();
@@ -53,15 +59,19 @@ public class AdoptionAppGUI extends JFrame {
 
         field = new JTextField();
         submitButton = new JButton("submit");
+        backToMenuButton = new JButton("Back to Menu"); // Initialize the Back to Menu button
+        backToMenuButton.setVisible(false); // Initially hidden
 
         JPanel inputPanel = new JPanel(new BorderLayout());
         inputPanel.add(field, BorderLayout.CENTER);
         inputPanel.add(submitButton, BorderLayout.EAST);
+        inputPanel.add(backToMenuButton, BorderLayout.WEST);
 
         mainPanel.add(inputPanel, BorderLayout.SOUTH);
         add(mainPanel);
         setJMenuBar(createMenuBar());
         submitButton.addActionListener(new SubmitButtonListener());
+        backToMenuButton.addActionListener(e -> displayMainMenu());
         displayMainMenu();
     }
 
@@ -75,6 +85,9 @@ public class AdoptionAppGUI extends JFrame {
                 + "5. Upload Adopt Story\n"
                 + "0. Exit\n"
                 + "Please enter your choice:");
+        // Hide Back to Menu button and show Submit button
+        backToMenuButton.setVisible(false);
+        submitButton.setVisible(true);        
     }
 
     private void handleMenuSelection(String choice) {
@@ -146,50 +159,100 @@ public class AdoptionAppGUI extends JFrame {
                 }
             }
         }
+        displayArea.append("\nClick 'back to menu' button to return\n");
+        backToMenuButton.setVisible(true);
+        submitButton.setVisible(false);
     }
 
 
     // Allows the user to submit an adoption application
     private void submitAdoptionApplication() {
-        displayArea.setText("Enter the name of the pet you want to adopt:\n");
+        displayArea.setText("\n--- Submit Adoption Application ---");
+
+        displayArea.append("\nEnter the name of the pet you want to adopt from the list:\n");
         for (Pet pet : shelter.getPets()) {
             if (pet.isAvailable()) {
                 displayArea.append(pet.getPetName() + "\n");
             }
         }
-    } // TODO: check this method
+        displayArea.append("n Type the name below and click submit.\n");
+        submitButton.setVisible(true);
+        submitButton.addActionListener(e -> {
+            String petName = field.getText();
+            Pet selectedPet = shelter.getPetByName(petName);
+
+            if (selectedPet == null || !selectedPet.isAvailable()) {
+                displayArea.append("Invalid pet name.");
+            } else {
+                AdoptApplication application = new AdoptApplication(currentUser.getName(), petName);
+                currentUser.submitApplication(application);
+                application.updateStatus("submitted");
+                currentUser.addAdoptedPets(selectedPet);
+                displayArea.append("Your application for " + selectedPet.getPetName() + " has been submitted.");
+            }
+        });
+        displayArea.append("\nClick 'back to menu' button to return\n");
+        backToMenuButton.setVisible(true);
+        submitButton.setVisible(false);
+    }
     
     // Displays user's applications
     private void viewUserApplications() {
-        if (currentUser == null) {
-            displayArea.setText("No user logged in. Please start by entering user details.\n");
-            return;
-        }
+        // if (currentUser == null) {
+        //     displayArea.setText("No user logged in. Please start by entering user details.\n");
+        //     return;
+        // }
     
         displayArea.setText("--- My Adoption Applications ---\n");
+        String userName = currentUser.getName();
+        displayArea.append("\n--- Applications for " + userName + "---");
         if (currentUser.getApplications().isEmpty()) {
             displayArea.append("You haven't submitted any adoption applications.\n");
         } else {
             for (AdoptApplication application : currentUser.getApplications()) {
-                displayArea.append("Application for " + application.getPetname()
+                displayArea.append("\nApplication for Pet: " + application.getPetname()
                         + " (Status: " + application.getStatus() + ")\n");
             }
         }
+
+        backToMenuButton.setVisible(true);
+        submitButton.setVisible(false);
     }
     
 
     private void reportStrayPet() {
         displayArea.setText("--- Add a Stray Pet to Our Shelter---\n");
-        displayArea.setText("Enter pet name(Give him/her a cute name!): ");
+        displayArea.append("Enter pet name(Give him/her a cute name!): ");
+        // TODO
+        String petName = field.getText().trim();
+        displayArea.append("Enter pet type (e.g. Dog, Cat):");
+        String petSpecies = field.getText().trim();
+        backToMenuButton.setVisible(true);
+        submitButton.setVisible(false);
 
     }
 
     private void uploadAdoptStory() {
+        displayArea.setText("\n--- Upload Adopt Story ---");
+
         if (currentUser == null || currentUser.getAdoptedPets().isEmpty()) {
             displayArea.setText("You haven't adopted any pets or we can't find user log in.");
+            backToMenuButton.setVisible(true);
+            submitButton.setVisible(false);
             return;
         }
         displayArea.setText("Please write your adoption story and click submit:\n");
+        backToMenuButton.setVisible(true);
+        submitButton.setVisible(true);
+
+        submitButton.addActionListener(e -> {
+            String story = field.getText();
+            currentUser.addAdoptStory(story);
+            displayArea.append("\nYour adoption story has been uploaded successfully!\n");
+            
+            field.setText(""); // Clear input
+        });
+
     }
 
     private void saveUserData() {
@@ -226,6 +289,7 @@ public class AdoptionAppGUI extends JFrame {
 
     // Prompts the user to input their name and role
     private void initializeCurrentUser() {
+
         JPanel userForm = new JPanel(new GridLayout(2, 2));
         JTextField nameField = new JTextField();
         JComboBox<String> roleField = new JComboBox<>(new String[]{"Adopter", "Staff"});
@@ -235,13 +299,8 @@ public class AdoptionAppGUI extends JFrame {
         userForm.add(new JLabel("Select your role:"));
         userForm.add(roleField);
 
-        int result = JOptionPane.showConfirmDialog(
-                this,
-                userForm,
-                "User Setup",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE
-        );
+        int result = JOptionPane.showConfirmDialog(this, userForm, "User Setup",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
             String name = nameField.getText().trim();
@@ -251,12 +310,8 @@ public class AdoptionAppGUI extends JFrame {
                 currentUser = new User(name, role);
                 displayArea.append("Welcome, " + name + " (" + role + ")!\n");
             } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Both name and role are required.",
-                        "Invalid Input",
-                        JOptionPane.ERROR_MESSAGE
-                );
+                JOptionPane.showMessageDialog(this, "Both name and role are required.",
+                        "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 initializeCurrentUser(); // Retry if input is invalid
             }
         } else {
@@ -275,5 +330,22 @@ public class AdoptionAppGUI extends JFrame {
         }
     }
 
+    // Helper method to clear old listeners before adding a new one
+    private void clearPreviousListeners(JButton button) {
+        for (ActionListener al : button.getActionListeners()) {
+            button.removeActionListener(al);
+        }
+    }
+
+    private void loadImages() {
+        String sep = System.getProperty("file.separator");
+        usersetupImage = new ImageIcon(System.getProperty("user.dir") + sep
+				+ "images" + sep + "dog's paw.jpg");
+    }
+
+    private void setPawImage() {
+		imageAsLabel = new JLabel(usersetupImage);
+		mainPanel.add(imageAsLabel);
+    }
 
 }
