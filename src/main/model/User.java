@@ -80,6 +80,7 @@ public class User implements Writable {
         json.put("name", name);
         json.put("role", role);
         json.put("applications", applicationsToJson());
+        json.put("Stories", stories);
         return json;
         // throw new UnsupportedOperationException("Unimplemented method 'toJson'");
     }

@@ -71,4 +71,6 @@ public class JsonReader {
         AdoptApplication application = new AdoptApplication(username, petname);
         user.submitApplication(application);
     }
+
+
 }
