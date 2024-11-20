@@ -24,7 +24,9 @@ This project is of particular interest to me because:
 - As a user, I want to handin an application to adopt a pet.
 - As a user, I want to view all my applications.
 - As a user, I want to add pets to the shelter when I spotted a stray animal.
+- As a user, I want to upload my adopt stories to keep a diary for my pet.
 - As a user, I want to be able to save my applications to a file.
+- As a user, I want to be able to save my adopt stories to file.
 - As a user, when I select the quit option from the application menu, I want to be reminded to save my applications to
   file and have the option to do so or not.
 - As a user, when I start the application, I want to be given the option too load my applications from file.
