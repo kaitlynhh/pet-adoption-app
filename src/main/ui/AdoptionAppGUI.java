@@ -8,6 +8,7 @@ import model.User;
 import persistence.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,9 +21,8 @@ public class AdoptionAppGUI extends JFrame {
     private static final String JSON_STORE = "./data/myApplications.json";
     private static int WIDTH = 600;
     private static int HEIGHT = 400;
-    private ImageIcon usersetupImage;
-    private JLabel imageAsLabel;
-    private JPanel setupPanel;
+    private ImageIcon pawImage;
+    private JLabel pawLabel;
     private Shelter shelter;
     private User currentUser;
     private JsonReader reader;
@@ -45,49 +45,84 @@ public class AdoptionAppGUI extends JFrame {
         reader = new JsonReader(JSON_STORE);
 
         initShelter();
+        loadImages();
         initUI();
-        initializeCurrentUser();
+        SwingUtilities.invokeLater(this::initializeCurrentUser);
 
     }
 
     // initializes the main UI components
     public void initUI() {
+        loadImages();
         mainPanel = new JPanel(new BorderLayout());
-        displayArea = new JTextArea();
-        displayArea.setEditable(false);
-        mainPanel.add(new JScrollPane(displayArea), BorderLayout.CENTER);
+        setContentPane(mainPanel);
 
-        field = new JTextField();
-        submitButton = new JButton("submit");
-        backToMenuButton = new JButton("Back to Menu"); // Initialize the Back to Menu button
-        backToMenuButton.setVisible(false); // Initially hidden
-
-        JPanel inputPanel = new JPanel(new BorderLayout());
-        inputPanel.add(field, BorderLayout.CENTER);
-        inputPanel.add(submitButton, BorderLayout.EAST);
-        inputPanel.add(backToMenuButton, BorderLayout.WEST);
-
-        mainPanel.add(inputPanel, BorderLayout.SOUTH);
-        add(mainPanel);
         setJMenuBar(createMenuBar());
-        submitButton.addActionListener(new SubmitButtonListener());
-        backToMenuButton.addActionListener(e -> displayMainMenu());
         displayMainMenu();
+        
+        // displayArea = new JTextArea();
+        // displayArea.setEditable(false);
+        // mainPanel.add(new JScrollPane(displayArea), BorderLayout.CENTER);
+
+        // field = new JTextField();
+        // submitButton = new JButton("submit");
+        // backToMenuButton = new JButton("Back to Menu"); // Initialize the Back to Menu button
+        // backToMenuButton.setVisible(false); // Initially hidden
+
+        // JPanel inputPanel = new JPanel(new BorderLayout());
+        // inputPanel.add(field, BorderLayout.CENTER);
+        // inputPanel.add(submitButton, BorderLayout.EAST);
+        // inputPanel.add(backToMenuButton, BorderLayout.WEST);
+
+        // mainPanel.add(inputPanel, BorderLayout.SOUTH);
+        // add(mainPanel);
+        // setJMenuBar(createMenuBar());
+        // submitButton.addActionListener(new SubmitButtonListener());
+        // backToMenuButton.addActionListener(e -> displayMainMenu());
+        // displayMainMenu();
     }
 
     // displays the main menu with different function options.
     private void displayMainMenu() {
-        displayArea.setText("Welcome to Stray Pets Adoption App!\n"
-                + "1. View Available Pets\n"
-                + "2. Submit Adoption Application\n"
-                + "3. View Your Applications\n"
-                + "4. Report a Stray Pet and Add it to our Shelter\n"
-                + "5. Upload Adopt Story\n"
-                + "0. Exit\n"
-                + "Please enter your choice:");
-        // Hide Back to Menu button and show Submit button
-        backToMenuButton.setVisible(false);
-        submitButton.setVisible(true);        
+        // create a panel for the main menu
+        mainPanel.removeAll();
+        JPanel menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(6, 1, 10, 10));
+
+        // buttons for each munu option and add them to panel
+        JButton viewPetsButton =  new JButton("View Available Pets");
+        JButton submitApplicationButton = new JButton("Submit Adoption Application");
+        JButton viewApplicationsButton = new JButton("View My Applications");
+        JButton reportStrayPetButton = new JButton("Report a stray pet");
+        JButton uploadStoryButton = new JButton("Upload Adopt Story");
+        JButton exitButton = new JButton("Exit");
+        menuPanel.add(viewPetsButton);
+        menuPanel.add(submitApplicationButton);
+        menuPanel.add(viewApplicationsButton);
+        menuPanel.add(reportStrayPetButton);
+        menuPanel.add(uploadStoryButton);
+        menuPanel.add(exitButton);
+
+        mainPanel.add(menuPanel, BorderLayout.CENTER);
+
+        // Add action listeners to handle button clicks
+        viewPetsButton.addActionListener(e -> viewAvailablePets());
+        submitApplicationButton.addActionListener(e -> submitAdoptionApplication());
+        viewApplicationsButton.addActionListener(e -> viewUserApplications());
+        reportStrayPetButton.addActionListener(e -> reportStrayPet());
+        uploadStoryButton.addActionListener(e -> uploadAdoptStory());
+        exitButton.addActionListener(e -> promptSaveBeforeExit());
+
+        menuPanel.add(viewPetsButton);
+        menuPanel.add(submitApplicationButton);
+        menuPanel.add(viewApplicationsButton);
+        menuPanel.add(reportStrayPetButton);
+        menuPanel.add(uploadStoryButton);
+        menuPanel.add(exitButton);
+        mainPanel.add(menuPanel, BorderLayout.CENTER);
+
+        mainPanel.revalidate(); // refresh the UI
+        mainPanel.repaint();       
     }
 
     private void handleMenuSelection(String choice) {
@@ -149,6 +184,9 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     private void viewAvailablePets() {
+        mainPanel.removeAll();
+        JTextArea displayArea = new JTextArea();
+        displayArea.setEditable(false);
         displayArea.setText("--- Available Pets ---\n");
         if (shelter.getPets().isEmpty()) {
             displayArea.append("No pets are currently available for adoption.\n");
@@ -160,22 +198,30 @@ public class AdoptionAppGUI extends JFrame {
             }
         }
         displayArea.append("\nClick 'back to menu' button to return\n");
-        backToMenuButton.setVisible(true);
-        submitButton.setVisible(false);
+        JButton backButton = new JButton("Back to Menu");
+        backButton.addActionListener(e -> displayMainMenu());
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(new JScrollPane(displayArea), BorderLayout.CENTER);
+        mainPanel.add(backButton, BorderLayout.SOUTH);
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
 
 
     // Allows the user to submit an adoption application
     private void submitAdoptionApplication() {
-        displayArea.setText("\n--- Submit Adoption Application ---");
-
-        displayArea.append("\nEnter the name of the pet you want to adopt from the list:\n");
+        mainPanel.removeAll();
+        JTextArea instructions = new JTextArea();
+        instructions.setEditable(false);
+        instructions.setText("\n--- Submit Adoption Application ---");
+        submitButton.setVisible(true);
+        instructions.append("\nEnter the name of the pet you want to adopt from the list:\n");
         for (Pet pet : shelter.getPets()) {
             if (pet.isAvailable()) {
-                displayArea.append(pet.getPetName() + "\n");
+                instructions.append(pet.getPetName() + "\n");
             }
         }
-        displayArea.append("n Type the name below and click submit.\n");
+        displayArea.append("\n Type the name below and click submit.\n");
         submitButton.setVisible(true);
         submitButton.addActionListener(e -> {
             String petName = field.getText();
@@ -193,30 +239,32 @@ public class AdoptionAppGUI extends JFrame {
         });
         displayArea.append("\nClick 'back to menu' button to return\n");
         backToMenuButton.setVisible(true);
-        submitButton.setVisible(false);
+        submitButton.setVisible(true);
     }
     
     // Displays user's applications
     private void viewUserApplications() {
-        // if (currentUser == null) {
-        //     displayArea.setText("No user logged in. Please start by entering user details.\n");
-        //     return;
-        // }
-    
+        mainPanel.removeAll();
+        JTextArea displayArea = new JTextArea();
+        displayArea.setEditable(false);
         displayArea.setText("--- My Adoption Applications ---\n");
         String userName = currentUser.getName();
         displayArea.append("\n--- Applications for " + userName + "---");
         if (currentUser.getApplications().isEmpty()) {
-            displayArea.append("You haven't submitted any adoption applications.\n");
+            displayArea.append("\nYou haven't submitted any adoption applications.\n");
         } else {
             for (AdoptApplication application : currentUser.getApplications()) {
                 displayArea.append("\nApplication for Pet: " + application.getPetname()
                         + " (Status: " + application.getStatus() + ")\n");
             }
         }
-
-        backToMenuButton.setVisible(true);
-        submitButton.setVisible(false);
+        JButton backButton = new JButton("Back to Menu");
+        backButton.addActionListener(e -> displayMainMenu());
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(new JScrollPane(displayArea), BorderLayout.CENTER);
+        mainPanel.add(backButton, BorderLayout.SOUTH);
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
     
 
@@ -236,12 +284,12 @@ public class AdoptionAppGUI extends JFrame {
         displayArea.setText("\n--- Upload Adopt Story ---");
 
         if (currentUser == null || currentUser.getAdoptedPets().isEmpty()) {
-            displayArea.setText("You haven't adopted any pets or we can't find user log in.");
+            displayArea.append("You haven't adopted any pets or we can't find user log in.");
             backToMenuButton.setVisible(true);
             submitButton.setVisible(false);
             return;
         }
-        displayArea.setText("Please write your adoption story and click submit:\n");
+        displayArea.append("Please write your adoption story and click submit:\n");
         backToMenuButton.setVisible(true);
         submitButton.setVisible(true);
 
@@ -252,7 +300,6 @@ public class AdoptionAppGUI extends JFrame {
             
             field.setText(""); // Clear input
         });
-
     }
 
     private void saveUserData() {
@@ -260,18 +307,22 @@ public class AdoptionAppGUI extends JFrame {
             writer.open();
             writer.write(currentUser);
             writer.close();
-            displayArea.append("\nData saved successfully.\n");
+            JOptionPane.showMessageDialog(this, "Data saved successfully.", "Success",
+            JOptionPane.INFORMATION_MESSAGE);
         } catch (FileNotFoundException e) {
-            displayArea.append("\nError: Unable to save data.\n");
+            JOptionPane.showMessageDialog(this, "Unable to save data.", "Error",
+            JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void loadUserData() {
         try {
             currentUser = reader.read();
-            displayArea.append("\nData loaded successfully.\n");
+            JOptionPane.showMessageDialog(this, "Data loaded successfully.", "Success",
+            JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
-            displayArea.append("\nError: Unable to load data.\n");
+            JOptionPane.showMessageDialog(this, "Unable to load data.", "Error",
+            JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -289,8 +340,15 @@ public class AdoptionAppGUI extends JFrame {
 
     // Prompts the user to input their name and role
     private void initializeCurrentUser() {
+        loadImages();
+        // Create a outerlayout for the main vertical box
+        Box outerLayout = Box.createVerticalBox();
+        // Add the image at the top
+        pawLabel = new JLabel(pawImage);
+        outerLayout.add(pawLabel);
+        outerLayout.add(Box.createVerticalStrut(20));
 
-        JPanel userForm = new JPanel(new GridLayout(2, 2));
+        JPanel userForm = new JPanel(new GridLayout(2, 2, 10, 10));
         JTextField nameField = new JTextField();
         JComboBox<String> roleField = new JComboBox<>(new String[]{"Adopter", "Staff"});
 
@@ -299,7 +357,9 @@ public class AdoptionAppGUI extends JFrame {
         userForm.add(new JLabel("Select your role:"));
         userForm.add(roleField);
 
-        int result = JOptionPane.showConfirmDialog(this, userForm, "User Setup",
+        outerLayout.add(userForm);
+
+        int result = JOptionPane.showConfirmDialog(this, outerLayout, "User Setup",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
@@ -339,13 +399,19 @@ public class AdoptionAppGUI extends JFrame {
 
     private void loadImages() {
         String sep = System.getProperty("file.separator");
-        usersetupImage = new ImageIcon(System.getProperty("user.dir") + sep
-				+ "images" + sep + "dog's paw.jpg");
-    }
-
-    private void setPawImage() {
-		imageAsLabel = new JLabel(usersetupImage);
-		mainPanel.add(imageAsLabel);
+        String imagePath = System.getProperty("user.dir") + sep
+				+ "data" + sep + "paw.png";
+        
+        pawImage = new ImageIcon(imagePath);
+        if (pawImage.getIconWidth() == -1) {
+            JOptionPane.showMessageDialog(this, "Image not found at: " + imagePath,
+                    "Image Error", JOptionPane.ERROR_MESSAGE);
+            pawImage = null;
+        } else {
+            Image scaledImage = pawImage.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+            pawImage = new ImageIcon(scaledImage);
+        }
     }
 
 }
+// JList
