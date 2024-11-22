@@ -10,6 +10,8 @@ import persistence.*;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -68,29 +70,31 @@ public class AdoptionAppGUI extends JFrame {
     // EFFECTS: creates a main menu to display
     private void displayMainMenu() {
         mainPanel.removeAll();
-        JPanel menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(6, 1, 10, 10));
-        // buttons for each munu option and add them to panel
-        JButton viewPetsButton =  new JButton("View Available Pets");
-        JButton submitApplicationButton = new JButton("Submit Adoption Application");
-        JButton viewApplicationsButton = new JButton("View My Applications");
-        JButton reportStrayPetButton = new JButton("Report a stray pet");
-        JButton uploadStoryButton = new JButton("Upload Adopt Story");
-        JButton exitButton = new JButton("Exit");
+        // Buttons added
+        JPanel menuPanel = createMenuPanel();
+        mainPanel.setLayout(new BorderLayout());
+        // JPanel menuPanel = new JPanel();
+        // menuPanel.setLayout(new GridLayout(6, 1, 10, 10));
+        // JButton viewPetsButton =  new JButton("View Available Pets");
+        // JButton submitApplicationButton = new JButton("Submit Adoption Application");
+        // JButton viewApplicationsButton = new JButton("View My Applications");
+        // JButton reportStrayPetButton = new JButton("Report a stray pet");
+        // JButton uploadStoryButton = new JButton("Upload Adopt Story");
+        // JButton exitButton = new JButton("Exit");
 
-        viewPetsButton.addActionListener(e -> viewAvailablePets());
-        submitApplicationButton.addActionListener(e -> submitAdoptionApplication());
-        viewApplicationsButton.addActionListener(e -> viewUserApplications());
-        reportStrayPetButton.addActionListener(e -> reportStrayPet());
-        uploadStoryButton.addActionListener(e -> uploadAdoptStory());
-        exitButton.addActionListener(e -> promptSaveBeforeExit());
+        // viewPetsButton.addActionListener(e -> viewAvailablePets());
+        // submitApplicationButton.addActionListener(e -> submitAdoptionApplication());
+        // viewApplicationsButton.addActionListener(e -> viewUserApplications());
+        // reportStrayPetButton.addActionListener(e -> reportStrayPet());
+        // uploadStoryButton.addActionListener(e -> uploadAdoptStory());
+        // exitButton.addActionListener(e -> promptSaveBeforeExit());
 
-        menuPanel.add(viewPetsButton);
-        menuPanel.add(submitApplicationButton);
-        menuPanel.add(viewApplicationsButton);
-        menuPanel.add(reportStrayPetButton);
-        menuPanel.add(uploadStoryButton);
-        menuPanel.add(exitButton);
+        // menuPanel.add(viewPetsButton);
+        // menuPanel.add(submitApplicationButton);
+        // menuPanel.add(viewApplicationsButton);
+        // menuPanel.add(reportStrayPetButton);
+        // menuPanel.add(uploadStoryButton);
+        // menuPanel.add(exitButton);
         mainPanel.add(menuPanel, BorderLayout.CENTER);
 
         mainPanel.revalidate(); // refresh the UI
@@ -509,7 +513,25 @@ public class AdoptionAppGUI extends JFrame {
         }
     }
     
-
+    private JPanel createMenuPanel() {
+        JPanel menuPanel = new JPanel(new GridLayout(6, 1, 10, 10));
+    
+        // Add menu buttons
+        menuPanel.add(createMenuButton("View Available Pets", e -> viewAvailablePets()));
+        menuPanel.add(createMenuButton("Submit Adoption Application", e -> submitAdoptionApplication()));
+        menuPanel.add(createMenuButton("View My Applications", e -> viewUserApplications()));
+        menuPanel.add(createMenuButton("Report a Stray Pet", e -> reportStrayPet()));
+        menuPanel.add(createMenuButton("Upload Adopt Story", e -> uploadAdoptStory()));
+        menuPanel.add(createMenuButton("Exit", e -> promptSaveBeforeExit()));
+    
+        return menuPanel;
+    }
+    
+    private JButton createMenuButton(String text, ActionListener action) {
+        JButton button = new JButton(text);
+        button.addActionListener(action);
+        return button;
+    }
     
 
 }
