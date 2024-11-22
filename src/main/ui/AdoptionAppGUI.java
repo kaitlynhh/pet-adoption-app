@@ -346,17 +346,21 @@ public class AdoptionAppGUI extends JFrame {
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
+        
             String name = nameField.getText().trim();
             String role = (String) roleField.getSelectedItem();
 
-            if (!name.isEmpty() && role != null) {
-                currentUser = new User(name, role);
-                displayArea.append("Welcome, " + name + " (" + role + ")!\n");
-            } else {
-                JOptionPane.showMessageDialog(this, "Both name and role are required.",
-                        "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                initializeCurrentUser(); // Retry if input is invalid
-            }
+            currentUser = new User(name, role);
+            displayArea.append("Welcome, " + name + " (" + role + ")!\n");
+
+            // if (!name.isEmpty() && role != null) {
+            //     currentUser = new User(name, role);
+            //     displayArea.append("Welcome, " + name + " (" + role + ")!\n");
+            // } else {
+            //     JOptionPane.showMessageDialog(this, "Both name and role are required.",
+            //             "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            //     initializeCurrentUser(); // Retry if input is invalid
+            // }
         } else {
             System.exit(0); // Exit if the user cancels
         }
@@ -470,6 +474,7 @@ public class AdoptionAppGUI extends JFrame {
             petNameField.setText(""); // Clear the input field after submission
         }
     }
+
     
 
 }
