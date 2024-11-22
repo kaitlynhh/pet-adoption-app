@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// Create a AdoptionApp GUI.
 public class AdoptionAppGUI extends JFrame {
     private static final String JSON_STORE = "./data/myApplications.json";
     private static int WIDTH = 600;
@@ -32,7 +33,10 @@ public class AdoptionAppGUI extends JFrame {
     private JTextArea displayArea;
     
 
-    // constructor - set up main GUI window
+    // constructor - set up main GUI window for the Adoption App.
+    // EFFECTS: Initializes the shelter with default data, set up the main
+    //          window and initializes UI conponents and starts the user
+    //          set up.
     public AdoptionAppGUI() throws FileNotFoundException {
         setTitle("Stray Pets Adoption App");
         setSize(WIDTH, HEIGHT);
@@ -164,7 +168,6 @@ public class AdoptionAppGUI extends JFrame {
         JTextField petNameField = new JTextField();
         JButton submitButton = new JButton("Submit");
         JButton backButton = new JButton("Back to Menu");
-        
         submitButton.addActionListener(e -> {
             String petName = petNameField.getText().trim();
             Pet selectedPet = shelter.getPetByName(petName);
@@ -193,6 +196,7 @@ public class AdoptionAppGUI extends JFrame {
         mainPanel.revalidate();
         mainPanel.repaint();
     }
+    
     
     // Displays user's applications
     private void viewUserApplications() {
@@ -292,6 +296,7 @@ public class AdoptionAppGUI extends JFrame {
         mainPanel.repaint();
     }
 
+    // 
     private void saveUserData() {
         try {
             writer.open();
@@ -305,6 +310,9 @@ public class AdoptionAppGUI extends JFrame {
         }
     }
 
+    // MODIFIES: System.exit
+    // EFFECTS: displays a dialog box asking if the user wants to exits
+    //          if yes, exit and data saved automatically;
     private void loadUserData() {
         try {
             currentUser = reader.read();
@@ -317,6 +325,9 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     // Prompt to Save Before Exit
+    // MODIFIES: System.exit
+    // EFFECTS: displays a dialog box asking if the user wants to exits
+    //          if yes, exit and data saved automatically;
     private void promptSaveBeforeExit() {
         int response = JOptionPane.showConfirmDialog(this,
                 "Do you want to save your data before exiting?",
@@ -329,6 +340,9 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     // Prompts the user to input their name and role
+    // MODIFIES: this.currentUser
+    // EFFECTS: displays a dialog for the user to input their name and role
+    //          Creates a new user with given details and exits if cancel.
     private void initializeCurrentUser() {
         // Create a outerlayout for the main vertical box
         Box outerLayout = Box.createVerticalBox();
@@ -379,7 +393,8 @@ public class AdoptionAppGUI extends JFrame {
         mainPanel.repaint();
     }
 
-// Helper to create a "Back to Menu" button
+    // Helper to create a "Back to Menu" button
+    // EFFECTS: create a back to menu button with action
     private JButton createBackButton() {
         JButton back = new JButton("Back to Menu");
         back.addActionListener(e -> displayMainMenu());
@@ -387,6 +402,8 @@ public class AdoptionAppGUI extends JFrame {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: 
     private void loadImages() {
         String sep = System.getProperty("file.separator");
         String imagePath = System.getProperty("user.dir") + sep
@@ -402,6 +419,7 @@ public class AdoptionAppGUI extends JFrame {
             pawImage = new ImageIcon(scaledImage);
         }
     }
+    
+    
 
 }
-// JList
