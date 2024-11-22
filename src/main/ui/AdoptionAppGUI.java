@@ -53,8 +53,8 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     // initializes the main UI components
-    // MODIFIES:
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: set up the initial UI components with menu bar and main menu
     public void initUI() {
         loadImages();
         mainPanel = new JPanel(new BorderLayout());
@@ -67,34 +67,14 @@ public class AdoptionAppGUI extends JFrame {
 
     // displays the main menu with different function options.
     // MODIFIES: this
-    // EFFECTS: creates a main menu to display
+    // EFFECTS: clears the main panel and sets up the main menu with different
+    //          feature buttons.
     private void displayMainMenu() {
         mainPanel.removeAll();
         // Buttons added
         JPanel menuPanel = createMenuPanel();
         mainPanel.setLayout(new BorderLayout());
-        // JPanel menuPanel = new JPanel();
-        // menuPanel.setLayout(new GridLayout(6, 1, 10, 10));
-        // JButton viewPetsButton =  new JButton("View Available Pets");
-        // JButton submitApplicationButton = new JButton("Submit Adoption Application");
-        // JButton viewApplicationsButton = new JButton("View My Applications");
-        // JButton reportStrayPetButton = new JButton("Report a stray pet");
-        // JButton uploadStoryButton = new JButton("Upload Adopt Story");
-        // JButton exitButton = new JButton("Exit");
-
-        // viewPetsButton.addActionListener(e -> viewAvailablePets());
-        // submitApplicationButton.addActionListener(e -> submitAdoptionApplication());
-        // viewApplicationsButton.addActionListener(e -> viewUserApplications());
-        // reportStrayPetButton.addActionListener(e -> reportStrayPet());
-        // uploadStoryButton.addActionListener(e -> uploadAdoptStory());
-        // exitButton.addActionListener(e -> promptSaveBeforeExit());
-
-        // menuPanel.add(viewPetsButton);
-        // menuPanel.add(submitApplicationButton);
-        // menuPanel.add(viewApplicationsButton);
-        // menuPanel.add(reportStrayPetButton);
-        // menuPanel.add(uploadStoryButton);
-        // menuPanel.add(exitButton);
+        
         mainPanel.add(menuPanel, BorderLayout.CENTER);
 
         mainPanel.revalidate(); // refresh the UI
@@ -102,7 +82,7 @@ public class AdoptionAppGUI extends JFrame {
     }
 
 
-    // Create a Menu Bar with options to load, save and exit.
+    // EFFECTS: Create and returns a Menu Bar with options to load, save and exit.
     public JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
@@ -123,6 +103,8 @@ public class AdoptionAppGUI extends JFrame {
         return menuBar;
     }
 
+    // MODIFIES: shelter
+    // EFFECTS: populates the shelter with some pets already exits.
     // initializes the Shelter with some pets in our shelter
     public void initShelter() {
         Pet otto = new Pet("Otto", "Male", "Dog", "Golden");
@@ -133,6 +115,9 @@ public class AdoptionAppGUI extends JFrame {
         shelter.addPet(boots);
     }
 
+    // REQUIRES: shelter should have a list of pets
+    // MODIFIES: this
+    // EFFECTS: clears the main panel and displays a list of pets
     private void viewAvailablePets() {
         mainPanel.removeAll();
         JTextArea displayArea = new JTextArea();
@@ -158,7 +143,8 @@ public class AdoptionAppGUI extends JFrame {
     }
 
 
-    // Allows the user to submit an adoption application
+    // MODIFIES: mainPanel
+    // EFFECTS: List all available pets for adoption, Allows the user to submit an adoption application
     private void submitAdoptionApplication() {
         mainPanel.removeAll();
 
@@ -206,8 +192,8 @@ public class AdoptionAppGUI extends JFrame {
         mainPanel.repaint();
     }
     
-    
-    // Displays user's applications
+    // MODIFIES: mainPanel
+    // REQUIRES: clears the current view and Displays user's applications.
     private void viewUserApplications() {
         mainPanel.removeAll();
         JTextArea displayArea = new JTextArea();
@@ -232,7 +218,9 @@ public class AdoptionAppGUI extends JFrame {
         mainPanel.repaint();
     }
     
-
+    // MODIFIES: mainPanel
+    // EFFECTS: displays a form for reporting a stray pet. Allows user to type details
+    //          add the stray pet into the shelter
     private void reportStrayPet() {
         mainPanel.removeAll();
         JTextArea instructions = new JTextArea("--- Add a Stray Pet to Our Shelter---\n");
@@ -250,6 +238,9 @@ public class AdoptionAppGUI extends JFrame {
 
     }
 
+    // MODIFIES: mainPanel
+    // EFFECTS: if current user has no adopted pets, displays a message
+    //          otherwise, displays a form for uploading an adopt story
     private void uploadAdoptStory() {
         mainPanel.removeAll();
         JTextArea instructions = new JTextArea("\n--- Upload Adopt Story ---");
@@ -283,7 +274,9 @@ public class AdoptionAppGUI extends JFrame {
         mainPanel.repaint();
     }
 
-    // 
+    // MODIFIES: the file at JSON_STORE
+    // EFFECTS: saves the current user data to the specified JSON file
+    //          if an error occurs shows an error message.
     private void saveUserData() {
         try {
             writer.open();
@@ -297,7 +290,7 @@ public class AdoptionAppGUI extends JFrame {
         }
     }
 
-    // MODIFIES: System.exit
+    // MODIFIES: this.currentUser
     // EFFECTS: displays a dialog box asking if the user wants to exits
     //          if yes, exit and data saved automatically;
     private void loadUserData() {
@@ -327,6 +320,7 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     // Prompts the user to input their name and role
+    // REQUIRES: name and role are not empty
     // MODIFIES: this.currentUser
     // EFFECTS: displays a dialog for the user to input their name and role
     //          Creates a new user with given details and exits if cancel.
@@ -473,8 +467,6 @@ public class AdoptionAppGUI extends JFrame {
     }
     
     // helper method for submitting an adoption application
-    // MODIFIES:
-    // EFFECTS:
     private void handleAdoptionSubmission(String petName, JTextArea instructions, JTextField petNameField) {
         Pet selectedPet = shelter.getPetByName(petName);
     
@@ -490,6 +482,10 @@ public class AdoptionAppGUI extends JFrame {
         }
     }
 
+    // REQUIRES: JTextArea != null
+    // MODIFIES: the panel created for he story form.
+    // EFFECTS: creates and returns a JPanel containing a text area for the user to
+    //          input story
     private JPanel createStoryForm(JTextArea instructions) {
         JTextArea storyField = new JTextArea(10, 30);
         JButton submitButton = new JButton("submit");
@@ -503,6 +499,10 @@ public class AdoptionAppGUI extends JFrame {
         return formPanel;
     }
 
+    // REQUIRES: story != null, JTextArea != null
+    // MODIFIES: the instructions JTextArea and the storyField JTextArea
+    // EFFECTS: if the story input is empty, output try again
+    //          if is not empty, adds the story to the current user's stories
     private void handleStorySubmission(String story, JTextArea instructions, JTextArea storyField) {
         if (story.isEmpty()) {
             instructions.append("\nStory cannot be empty. Please try again.\n");
@@ -513,6 +513,8 @@ public class AdoptionAppGUI extends JFrame {
         }
     }
     
+    // MODIFIES: menu panel
+    // EFFECTS: Creates and returns a JPanel with a grid, contains menu buttons for features
     private JPanel createMenuPanel() {
         JPanel menuPanel = new JPanel(new GridLayout(6, 1, 10, 10));
     
@@ -526,7 +528,10 @@ public class AdoptionAppGUI extends JFrame {
     
         return menuPanel;
     }
-    
+
+    // REQUIRES: string != null
+    // MODIFIES: Jbutton
+    // EFFECTS: creates and returns a JButton with the specified text and associates the action with it
     private JButton createMenuButton(String text, ActionListener action) {
         JButton button = new JButton(text);
         button.addActionListener(action);
