@@ -54,6 +54,8 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     // initializes the main UI components
+    // MODIFIES:
+    // EFFECTS:
     public void initUI() {
         loadImages();
         mainPanel = new JPanel(new BorderLayout());
@@ -65,6 +67,8 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     // displays the main menu with different function options.
+    // MODIFIES: 
+    // EFFECTS:
     private void displayMainMenu() {
         mainPanel.removeAll();
         JPanel menuPanel = new JPanel();
@@ -256,22 +260,24 @@ public class AdoptionAppGUI extends JFrame {
             return;
         }
         instructions.append("Write your story below and click submit.");
-        JTextArea storyField = new JTextArea(10, 30);
-        JButton submit = new JButton("Submit");
+        JPanel storyForm = createStoryForm(instructions);
+        JButton backButton = createBackButton();
+        // JTextArea storyField = new JTextArea(10, 30);
+        // JButton submit = new JButton("Submit");
 
-        submit.addActionListener(e -> {
-            currentUser.addAdoptStory(storyField.getText().trim());
-            instructions.append("\nYour adoption story has been uploaded successfully!\n");
-            storyField.setText(""); // Clear input
-        });
-        JPanel inputPanel = new JPanel(new BorderLayout());
-        inputPanel.add(new JScrollPane(storyField), BorderLayout.CENTER);
-        inputPanel.add(submit, BorderLayout.SOUTH); // Submit button below the input
-        mainPanel.removeAll();
+        // submit.addActionListener(e -> {
+        //     currentUser.addAdoptStory(storyField.getText().trim());
+        //     instructions.append("\nYour adoption story has been uploaded successfully!\n");
+        //     storyField.setText(""); // Clear input
+        // });
+        // JPanel inputPanel = new JPanel(new BorderLayout());
+        // inputPanel.add(new JScrollPane(storyField), BorderLayout.CENTER);
+        // inputPanel.add(submit, BorderLayout.SOUTH); // Submit button below the input
+        // mainPanel.removeAll();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(new JScrollPane(instructions), BorderLayout.NORTH); // Instructions at the top
-        mainPanel.add(inputPanel, BorderLayout.CENTER); // Input and submit at the center
-        mainPanel.add(createBackButton(), BorderLayout.SOUTH);
+        mainPanel.add(storyForm, BorderLayout.CENTER); // Input and submit at the center
+        mainPanel.add(backButton, BorderLayout.SOUTH);
         mainPanel.revalidate();
         mainPanel.repaint();
     }
@@ -387,7 +393,7 @@ public class AdoptionAppGUI extends JFrame {
 
 
     // MODIFIES: this
-    // EFFECTS: 
+    // EFFECTS: load the image of dog's paw into the GUI as an icon.
     private void loadImages() {
         String sep = System.getProperty("file.separator");
         String imagePath = System.getProperty("user.dir") + sep
@@ -404,6 +410,9 @@ public class AdoptionAppGUI extends JFrame {
         }
     }
     
+    // heler method for report a stray pet
+    // MODIFIES: JTextArea
+    // EFFECTS: create a stray pet adoption form with basic informations
     private JPanel createStrayPetForm(JTextArea instructions) {
         JTextField nameField = new JTextField();
         JTextField speciesField = new JTextField();
@@ -445,6 +454,8 @@ public class AdoptionAppGUI extends JFrame {
         }
     }
 
+    // helper method for creating an adoption form with basic informations
+
     private JPanel createAdoptionForm(JTextArea instructions) {
         JTextField petNameField = new JTextField();
         JButton submitButton = new JButton("Submit");
@@ -460,6 +471,9 @@ public class AdoptionAppGUI extends JFrame {
         return form;
     }
     
+    // helper method for submitting an adoption application
+    // MODIFIES:
+    // EFFECTS:
     private void handleAdoptionSubmission(String petName, JTextArea instructions, JTextField petNameField) {
         Pet selectedPet = shelter.getPetByName(petName);
     
@@ -474,6 +488,30 @@ public class AdoptionAppGUI extends JFrame {
             petNameField.setText(""); // Clear the input field after submission
         }
     }
+
+    private JPanel createStoryForm(JTextArea instructions) {
+        JTextArea storyField = new JTextArea(10, 30);
+        JButton submitButton = new JButton("submit");
+
+        submitButton.addActionListener(e -> handleStorySubmission(
+                storyField.getText().trim(), instructions, storyField));
+        JPanel formPanel = new JPanel(new BorderLayout());
+        formPanel.add(new JScrollPane(storyField), BorderLayout.CENTER);
+        formPanel.add(submitButton, BorderLayout.SOUTH);
+
+        return formPanel;
+    }
+
+    private void handleStorySubmission(String story, JTextArea instructions, JTextArea storyField) {
+        if (story.isEmpty()) {
+            instructions.append("\nStory cannot be empty. Please try again.\n");
+        } else {
+            currentUser.addAdoptStory(story);
+            instructions.append("\nYour adoption story has been uploaded successfully!\n");
+            storyField.setText(""); // Clear the input field after submission
+        }
+    }
+    
 
     
 
