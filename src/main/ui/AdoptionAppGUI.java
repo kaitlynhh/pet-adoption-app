@@ -30,9 +30,7 @@ public class AdoptionAppGUI extends JFrame {
 
     private JPanel mainPanel;
     private JTextArea displayArea;
-    private JTextField field;
-    private JButton submitButton;
-    private JButton backToMenuButton;
+    
 
     // constructor - set up main GUI window
     public AdoptionAppGUI() throws FileNotFoundException {
@@ -60,26 +58,6 @@ public class AdoptionAppGUI extends JFrame {
         setJMenuBar(createMenuBar());
         displayMainMenu();
         
-        // displayArea = new JTextArea();
-        // displayArea.setEditable(false);
-        // mainPanel.add(new JScrollPane(displayArea), BorderLayout.CENTER);
-
-        // field = new JTextField();
-        // submitButton = new JButton("submit");
-        // backToMenuButton = new JButton("Back to Menu"); // Initialize the Back to Menu button
-        // backToMenuButton.setVisible(false); // Initially hidden
-
-        // JPanel inputPanel = new JPanel(new BorderLayout());
-        // inputPanel.add(field, BorderLayout.CENTER);
-        // inputPanel.add(submitButton, BorderLayout.EAST);
-        // inputPanel.add(backToMenuButton, BorderLayout.WEST);
-
-        // mainPanel.add(inputPanel, BorderLayout.SOUTH);
-        // add(mainPanel);
-        // setJMenuBar(createMenuBar());
-        // submitButton.addActionListener(new SubmitButtonListener());
-        // backToMenuButton.addActionListener(e -> displayMainMenu());
-        // displayMainMenu();
     }
 
     // displays the main menu with different function options.
@@ -112,32 +90,6 @@ public class AdoptionAppGUI extends JFrame {
 
         mainPanel.revalidate(); // refresh the UI
         mainPanel.repaint();       
-    }
-
-    private void handleMenuSelection(String choice) {
-        switch (choice) {
-            case "1":
-                viewAvailablePets();
-                break;
-            case "2":
-                submitAdoptionApplication();
-                break;
-            case "3":
-                viewUserApplications();
-                break;
-            case "4":
-                reportStrayPet();
-                break;
-            case "5":
-                uploadAdoptStory();
-                break;
-            case "0":
-                promptSaveBeforeExit();
-                break;
-
-            default:
-                displayArea.append("\n Invalid choice, please try again.");
-        }
     }
 
 
@@ -232,6 +184,7 @@ public class AdoptionAppGUI extends JFrame {
         JPanel inputPanel = new JPanel(new BorderLayout());
         inputPanel.add(petNameField, BorderLayout.CENTER);
         inputPanel.add(submitButton, BorderLayout.EAST);
+
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(new JScrollPane(instructions), BorderLayout.CENTER);
         mainPanel.add(backButton, BorderLayout.SOUTH);
@@ -271,23 +224,34 @@ public class AdoptionAppGUI extends JFrame {
         mainPanel.removeAll();
         JTextArea instructions = new JTextArea("--- Add a Stray Pet to Our Shelter---\n");
         instructions.setEditable(false);
-        JTextField name = new JTextField(), species = new JTextField();
-        JTextField gender = new JTextField(), breed = new JTextField();
-        JButton submit = new JButton("Submit"), back = new JButton("Back");
+        JTextField name = new JTextField();
+        JTextField species = new JTextField();
+        JTextField gender = new JTextField();
+        JTextField breed = new JTextField();
+        JButton submit = new JButton("Submit");
+        JButton back = new JButton("Back");
         submit.addActionListener(e -> {
             shelter.addPet(new Pet(name.getText().trim(), gender.getText().trim(),
-            species.getText().trim(), breed.getText().trim()));
+                    species.getText().trim(), breed.getText().trim()));
             instructions.append("\n Stray pet added: " + name.getText() + "\n");
-            name.setText(""); species.setText(""); gender.setText(""); breed.setText("");
+            name.setText("");
+            species.setText("");
+            gender.setText("");
+            breed.setText("");
         });
         back.addActionListener(e -> displayMainMenu());
 
         JPanel form = new JPanel(new GridLayout(5, 2));
-        form.add(new JLabel("Name:")); form.add(name);
-        form.add(new JLabel("Species:")); form.add(species);
-        form.add(new JLabel("Gender:")); form.add(gender);
-        form.add(new JLabel("Breed:")); form.add(breed);
-        form.add(submit); form.add(back);
+        form.add(new JLabel("Name:"));
+        form.add(name);
+        form.add(new JLabel("Species:"));
+        form.add(species);
+        form.add(new JLabel("Gender:"));
+        form.add(gender);
+        form.add(new JLabel("Breed:"));
+        form.add(breed);
+        form.add(submit);
+        form.add(back);
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(new JScrollPane(instructions), BorderLayout.NORTH);
@@ -298,25 +262,34 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     private void uploadAdoptStory() {
-        displayArea.setText("\n--- Upload Adopt Story ---");
+        mainPanel.removeAll();
+        JTextArea instructions = new JTextArea("\n--- Upload Adopt Story ---");
+        instructions.setEditable(false);
 
-        if (currentUser == null || currentUser.getAdoptedPets().isEmpty()) {
-            displayArea.append("You haven't adopted any pets or we can't find user log in.");
-            backToMenuButton.setVisible(true);
-            submitButton.setVisible(false);
+        if (currentUser.getAdoptedPets().isEmpty()) {
+            instructions.append("\nYou haven't adopted any pets.");
+            setupMainPanel(instructions, createBackButton());
             return;
         }
-        displayArea.append("Please write your adoption story and click submit:\n");
-        backToMenuButton.setVisible(true);
-        submitButton.setVisible(true);
+        instructions.append("Write your story below and click submit.");
+        JTextArea storyField = new JTextArea(10, 30);
+        JButton submit = new JButton("Submit");
 
-        submitButton.addActionListener(e -> {
-            String story = field.getText();
-            currentUser.addAdoptStory(story);
-            displayArea.append("\nYour adoption story has been uploaded successfully!\n");
-            
-            field.setText(""); // Clear input
+        submit.addActionListener(e -> {
+            currentUser.addAdoptStory(storyField.getText().trim());
+            instructions.append("\nYour adoption story has been uploaded successfully!\n");
+            storyField.setText(""); // Clear input
         });
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        inputPanel.add(new JScrollPane(storyField), BorderLayout.CENTER);
+        inputPanel.add(submit, BorderLayout.SOUTH); // Submit button below the input
+        mainPanel.removeAll();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(new JScrollPane(instructions), BorderLayout.NORTH); // Instructions at the top
+        mainPanel.add(inputPanel, BorderLayout.CENTER); // Input and submit at the center
+        mainPanel.add(createBackButton(), BorderLayout.SOUTH);
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
 
     private void saveUserData() {
@@ -396,22 +369,23 @@ public class AdoptionAppGUI extends JFrame {
     }
 
 
-    // Listener for Submit Button
-    private class SubmitButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String userInput = field.getText();
-            handleMenuSelection(userInput);
-            field.setText("");
-        }
+    // Helper to set up the main panel with a text area and a back button
+    private void setupMainPanel(JTextArea instructions, JButton backButton) {
+        mainPanel.removeAll();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(new JScrollPane(instructions), BorderLayout.CENTER);
+        mainPanel.add(backButton, BorderLayout.SOUTH);
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
 
-    // Helper method to clear old listeners before adding a new one
-    private void clearPreviousListeners(JButton button) {
-        for (ActionListener al : button.getActionListeners()) {
-            button.removeActionListener(al);
-        }
+// Helper to create a "Back to Menu" button
+    private JButton createBackButton() {
+        JButton back = new JButton("Back to Menu");
+        back.addActionListener(e -> displayMainMenu());
+        return back;
     }
+
 
     private void loadImages() {
         String sep = System.getProperty("file.separator");
