@@ -156,37 +156,41 @@ public class AdoptionAppGUI extends JFrame {
     // Allows the user to submit an adoption application
     private void submitAdoptionApplication() {
         mainPanel.removeAll();
-        JTextArea instructions = new JTextArea();
+
+        JTextArea instructions = new JTextArea("\n--- Submit Adoption Application ---");
         instructions.setEditable(false);
-        instructions.setText("\n--- Submit Adoption Application ---");
         instructions.append("\nEnter the name of the pet you want to adopt from the list:\n");
         for (Pet pet : shelter.getPets()) {
             if (pet.isAvailable()) {
                 instructions.append(pet.getPetName() + "\n");
             }
         }
-        JTextField petNameField = new JTextField();
-        JButton submitButton = new JButton("Submit");
-        JButton backButton = new JButton("Back to Menu");
-        submitButton.addActionListener(e -> {
-            String petName = petNameField.getText().trim();
-            Pet selectedPet = shelter.getPetByName(petName);
 
-            if (selectedPet == null || !selectedPet.isAvailable()) {
-                displayArea.append("Invalid pet name.");
-            } else {
-                AdoptApplication application = new AdoptApplication(currentUser.getName(), petName);
-                currentUser.submitApplication(application);
-                application.updateStatus("submitted");
-                currentUser.addAdoptedPets(selectedPet);
-                instructions.append("Your application for " + selectedPet.getPetName() + " has been submitted.");
-                petNameField.setText("");
-            }
-        });
-        backButton.addActionListener(e -> displayMainMenu());
-        JPanel inputPanel = new JPanel(new BorderLayout());
-        inputPanel.add(petNameField, BorderLayout.CENTER);
-        inputPanel.add(submitButton, BorderLayout.EAST);
+        JPanel inputPanel = createAdoptionForm(instructions);
+        JButton backButton = createBackButton();
+
+        // JTextField petNameField = new JTextField();
+        // JButton submitButton = new JButton("Submit");
+        // JButton backButton = new JButton("Back to Menu");
+        // submitButton.addActionListener(e -> {
+        //     String petName = petNameField.getText().trim();
+        //     Pet selectedPet = shelter.getPetByName(petName);
+
+        //     if (selectedPet == null || !selectedPet.isAvailable()) {
+        //         displayArea.append("Invalid pet name.");
+        //     } else {
+        //         AdoptApplication application = new AdoptApplication(currentUser.getName(), petName);
+        //         currentUser.submitApplication(application);
+        //         application.updateStatus("submitted");
+        //         currentUser.addAdoptedPets(selectedPet);
+        //         instructions.append("Your application for " + selectedPet.getPetName() + " has been submitted.");
+        //         petNameField.setText("");
+        //     }
+        // });
+        // backButton.addActionListener(e -> displayMainMenu());
+        // JPanel inputPanel = new JPanel(new BorderLayout());
+        // inputPanel.add(petNameField, BorderLayout.CENTER);
+        // inputPanel.add(submitButton, BorderLayout.EAST);
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(new JScrollPane(instructions), BorderLayout.CENTER);
@@ -232,7 +236,7 @@ public class AdoptionAppGUI extends JFrame {
         JButton backButton = new JButton("Back to Menu");
         backButton.addActionListener(e -> displayMainMenu());
         form.add(backButton);
-        
+
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(new JScrollPane(instructions), BorderLayout.NORTH);
         mainPanel.add(form, BorderLayout.CENTER);
@@ -434,6 +438,36 @@ public class AdoptionAppGUI extends JFrame {
             for (JTextField field : fields) {
                 field.setText(""); // Clear all input fields
             }
+        }
+    }
+
+    private JPanel createAdoptionForm(JTextArea instructions) {
+        JTextField petNameField = new JTextField();
+        JButton submitButton = new JButton("Submit");
+    
+        submitButton.addActionListener(e -> handleAdoptionSubmission(
+                petNameField.getText().trim(),
+                instructions,
+                petNameField));
+    
+        JPanel form = new JPanel(new BorderLayout());
+        form.add(petNameField, BorderLayout.CENTER);
+        form.add(submitButton, BorderLayout.EAST);
+        return form;
+    }
+    
+    private void handleAdoptionSubmission(String petName, JTextArea instructions, JTextField petNameField) {
+        Pet selectedPet = shelter.getPetByName(petName);
+    
+        if (selectedPet == null || !selectedPet.isAvailable()) {
+            instructions.append("\nInvalid pet name. Please try again.\n");
+        } else {
+            AdoptApplication application = new AdoptApplication(currentUser.getName(), petName);
+            currentUser.submitApplication(application);
+            application.updateStatus("submitted");
+            currentUser.addAdoptedPets(selectedPet);
+            instructions.append("\nYour application for " + selectedPet.getPetName() + " has been submitted.\n");
+            petNameField.setText(""); // Clear the input field after submission
         }
     }
     
