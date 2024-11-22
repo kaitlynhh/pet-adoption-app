@@ -370,6 +370,8 @@ public class AdoptionAppGUI extends JFrame {
 
 
     // Helper to set up the main panel with a text area and a back button
+    // MODIFIES: mainPanel
+    // EFFECTS: set up the main panel with a text area and a back button
     private void setupMainPanel(JTextArea instructions, JButton backButton) {
         mainPanel.removeAll();
         mainPanel.setLayout(new BorderLayout());
@@ -380,6 +382,7 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     // Helper to create a "Back to Menu" button
+    // MODIFIES: JButton
     // EFFECTS: create a back to menu button with action
     private JButton createBackButton() {
         JButton back = new JButton("Back to Menu");
@@ -437,6 +440,8 @@ public class AdoptionAppGUI extends JFrame {
         return form;
     }
 
+    // MODIFIES: shelter
+    // EFFECTS: add the new stray pet into our shelter
     private void handleStrayPetSubmission(String name, String species, String gender, String breed,
                                       JTextArea instructions, JTextField... fields) {
         if (name.isEmpty() || species.isEmpty() || gender.isEmpty() || breed.isEmpty()) {
@@ -451,7 +456,8 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     // helper method for creating an adoption form with basic informations
-
+    // MODIFIES: JPanel form
+    // EFFECTS: create an adoption form with basic informations and create submit buttons
     private JPanel createAdoptionForm(JTextArea instructions) {
         JTextField petNameField = new JTextField();
         JButton submitButton = new JButton("Submit");
@@ -468,6 +474,8 @@ public class AdoptionAppGUI extends JFrame {
     }
     
     // helper method for submitting an adoption application
+    // MODIFIES: application, currentuser
+    // EFFECTS: add the new application to the user's applications
     private void handleAdoptionSubmission(String petName, JTextArea instructions, JTextField petNameField) {
         Pet selectedPet = shelter.getPetByName(petName);
     
