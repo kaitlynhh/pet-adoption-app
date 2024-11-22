@@ -31,10 +31,12 @@ This project is of particular interest to me because:
   file and have the option to do so or not.
 - As a user, when I start the application, I want to be given the option too load my applications from file.
 
-# Instrctions for End User
-- You can add a new pet to the shelter by go to the main menu and click on **Report a Stray Pet**. A form will appear prompting you to enter the pet's basic information. You can fill in the details and click **Submit** to add the pet to our shelter.
+# Instructions for End User
+- You can add a new pet to the shelter by go to the main menu and click on **Report a Stray Pet**. A form will appear prompting you to enter the pet's basic information. You can fill in the details and click **Submit** to add the pet to our shelter, then click **back to menu** button to go back to our main menu.
 - You can submit an Adoption Application by click on **Submit an Adoption Application** from the main menu. Select a pet from the list of available pets, fill in the required information, and click **Submit**. Your application will be saved and can be viewed in the **View Your Applications** section.
-- You can locate the **Available Pets List** by go to the main menu and click on **View Available Pets**, it shows the pets available in the shelter and it will update when pets are added, removed, or adopted.
-- You can save the state of the application by go to the **File** menu and select **Save Data**. This will save your curent state to a JSON file 'myApplications.json' in the 'data' folder.
+- You can view all the pets in the **Available Pets List** by go to the main menu and click on **View Available Pets**, it shows the pets available in the shelter and it will update when pets are added, removed, or adopted.
+- You can upload your adopt story by go to the main menu and click on **upload adopt story** button. A text area will appear with instructions. You can type your story there and click submit.
+- You can locate my viual component at the start of this application, by the user set up, you can see a dog's paw image which is added as a visual component.
+- You can save the state of the application by go to the **File** menu at the left-top corner and select **Save Data**. This will save your curent state to a JSON file 'myApplications.json' in the 'data' folder.
 - You can reload the state previously saved by go to the **file** menu and select **Load Data**. This will retrieve the saved data from the JSON file and restore the application's state to the last saved version.
 

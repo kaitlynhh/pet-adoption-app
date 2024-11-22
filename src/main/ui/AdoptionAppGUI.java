@@ -8,11 +8,8 @@ import model.User;
 import persistence.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -67,8 +64,8 @@ public class AdoptionAppGUI extends JFrame {
     }
 
     // displays the main menu with different function options.
-    // MODIFIES: 
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: creates a main menu to display
     private void displayMainMenu() {
         mainPanel.removeAll();
         JPanel menuPanel = new JPanel();
