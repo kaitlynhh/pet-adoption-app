@@ -228,35 +228,11 @@ public class AdoptionAppGUI extends JFrame {
         mainPanel.removeAll();
         JTextArea instructions = new JTextArea("--- Add a Stray Pet to Our Shelter---\n");
         instructions.setEditable(false);
-        JTextField name = new JTextField();
-        JTextField species = new JTextField();
-        JTextField gender = new JTextField();
-        JTextField breed = new JTextField();
-        JButton submit = new JButton("Submit");
-        JButton back = new JButton("Back");
-        submit.addActionListener(e -> {
-            shelter.addPet(new Pet(name.getText().trim(), gender.getText().trim(),
-                    species.getText().trim(), breed.getText().trim()));
-            instructions.append("\n Stray pet added: " + name.getText() + "\n");
-            name.setText("");
-            species.setText("");
-            gender.setText("");
-            breed.setText("");
-        });
-        back.addActionListener(e -> displayMainMenu());
-
-        JPanel form = new JPanel(new GridLayout(5, 2));
-        form.add(new JLabel("Name:"));
-        form.add(name);
-        form.add(new JLabel("Species:"));
-        form.add(species);
-        form.add(new JLabel("Gender:"));
-        form.add(gender);
-        form.add(new JLabel("Breed:"));
-        form.add(breed);
-        form.add(submit);
-        form.add(back);
-
+        JPanel form = createStrayPetForm(instructions);
+        JButton backButton = new JButton("Back to Menu");
+        backButton.addActionListener(e -> displayMainMenu());
+        form.add(backButton);
+        
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(new JScrollPane(instructions), BorderLayout.NORTH);
         mainPanel.add(form, BorderLayout.CENTER);
@@ -420,6 +396,46 @@ public class AdoptionAppGUI extends JFrame {
         }
     }
     
+    private JPanel createStrayPetForm(JTextArea instructions) {
+        JTextField nameField = new JTextField();
+        JTextField speciesField = new JTextField();
+        JTextField genderField = new JTextField();
+        JTextField breedField = new JTextField();
+        JButton submitButton = new JButton("Submit");
+    
+        submitButton.addActionListener(e -> handleStrayPetSubmission(
+                nameField.getText().trim(),
+                speciesField.getText().trim(),
+                genderField.getText().trim(),
+                breedField.getText().trim(),
+                instructions,
+                nameField, speciesField, genderField, breedField));
+    
+        JPanel form = new JPanel(new GridLayout(5, 2, 10, 10));
+        form.add(new JLabel("Name:"));
+        form.add(nameField);
+        form.add(new JLabel("Species:"));
+        form.add(speciesField);
+        form.add(new JLabel("Gender:"));
+        form.add(genderField);
+        form.add(new JLabel("Breed:"));
+        form.add(breedField);
+        form.add(submitButton);
+        return form;
+    }
+
+    private void handleStrayPetSubmission(String name, String species, String gender, String breed,
+                                      JTextArea instructions, JTextField... fields) {
+        if (name.isEmpty() || species.isEmpty() || gender.isEmpty() || breed.isEmpty()) {
+            instructions.append("\nAll fields are required. Please try again.\n");
+        } else {
+            shelter.addPet(new Pet(name, gender, species, breed));
+            instructions.append("\nStray pet added: " + name + "\n");
+            for (JTextField field : fields) {
+                field.setText(""); // Clear all input fields
+            }
+        }
+    }
     
 
 }
