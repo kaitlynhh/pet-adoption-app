@@ -16,7 +16,8 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-// Create a AdoptionApp GUI.
+// Create an AdoptionApp GUI.
+// GUI extends JFrame
 public class AdoptionAppGUI extends JFrame {
     private static final String JSON_STORE = "./data/myApplications.json";
     private static int WIDTH = 600;
