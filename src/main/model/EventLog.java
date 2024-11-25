@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 
-public class EventLog implements Iterable<Event>{
+public class EventLog implements Iterable<Event> {
 
     private static EventLog theLog;
     private Collection<Event> events;

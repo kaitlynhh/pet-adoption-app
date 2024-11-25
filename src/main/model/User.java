@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-
 // Create a user for the system
 public class User implements Writable {
     private String name;
@@ -24,7 +23,6 @@ public class User implements Writable {
         this.adoptedPets = new ArrayList<>();
     }
 
-
     // return the user's username
     public String getName() {
         return name;
@@ -37,6 +35,8 @@ public class User implements Writable {
 
     // EFFECTS: get all the applications the user submitted
     public List<AdoptApplication> getApplications() {
+        EventLog.getInstance().logEvent(new Event("User viewed adoption applications: "
+                + name));
         return applications;
     }
 
@@ -57,6 +57,9 @@ public class User implements Writable {
     public void submitApplication(AdoptApplication application) {
         this.applications.add(application);
         application.updateStatus("submitted");
+        EventLog.getInstance().logEvent(new Event(
+                "Adoption application submitted for pet: " + application.getPetname()
+                        + " by user: " + name));
     }
 
     // upload an adopt story
@@ -65,6 +68,8 @@ public class User implements Writable {
     // EFFECTS: add the story to user's list of stories
     public void addAdoptStory(String story) {
         this.stories.add(story);
+        EventLog.getInstance().logEvent(new Event("Adoption story added by user: " + name));
+
     }
 
     // add a pet to user's adopted list
@@ -72,6 +77,8 @@ public class User implements Writable {
     // EFFECTS: add a new adopted stray pet to the user's list of adopted pets
     public void addAdoptedPets(Pet pet) {
         this.adoptedPets.add(pet);
+        EventLog.getInstance().logEvent(new Event("Pet added to adopted list by user: " + name
+                + ". Pet: " + pet.getPetName()));
     }
 
     @Override
@@ -96,4 +103,3 @@ public class User implements Writable {
     }
 
 }
-

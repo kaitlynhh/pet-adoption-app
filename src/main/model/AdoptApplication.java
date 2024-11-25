@@ -7,15 +7,14 @@ import persistence.Writable;
 public class AdoptApplication implements Writable {
     private String username;
     private String petname;
-    private String status; //pending? submitted? approved? rejected?
+    private String status; // pending? submitted? approved? rejected?
 
-    //Constructor, an initial application with pending status
+    // Constructor, an initial application with pending status
     public AdoptApplication(String username, String petname) {
         this.username = username;
         this.petname = petname;
         this.status = "pending";
     }
-
 
     // EFFECTS: return the user id.
     public String getUsername() {
@@ -37,8 +36,10 @@ public class AdoptApplication implements Writable {
     // EFFECTS: updates application status with the new status provided
     public void updateStatus(String newStatus) {
         this.status = newStatus;
+        EventLog.getInstance().logEvent(new Event(
+                "Adoption application status updated for pet: " + petname
+                        + " by user: " + username + ". New status: " + newStatus));
     }
-
 
     @Override
     public JSONObject toJson() {

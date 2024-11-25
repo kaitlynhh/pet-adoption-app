@@ -22,6 +22,8 @@ public class Shelter {
     // EFFECTS: add the new pet into our shelter pets list
     public void addPet(Pet pet) {
         pets.add(pet);
+        EventLog.getInstance().logEvent(new Event("Pet added to shelter: "
+                + pet.getPetName()));
     }
 
     
@@ -34,6 +36,8 @@ public class Shelter {
                 return pet;
             }
         }
+        EventLog.getInstance().logEvent(new Event("Pet not found in shelter "
+                + name));
         return null;
         
     }
