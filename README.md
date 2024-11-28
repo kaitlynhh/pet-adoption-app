@@ -40,3 +40,15 @@ This project is of particular interest to me because:
 - You can save the state of the application by go to the **File** menu at the left-top corner and select **Save Data**. This will save your curent state to a JSON file 'myApplications.json' in the 'data' folder.
 - You can reload the state previously saved by go to the **file** menu and select **Load Data**. This will retrieve the saved data from the JSON file and restore the application's state to the last saved version.
 
+## Phase 4: Task 2
+### Sample Event Log
+
+Below is a sample log of events captured during application execution:
+
+- Pet added to shelter: Otto
+- Pet added to shelter: Bob
+- Pet added to shelter: Boots
+- Adoption application submitted for pet: Bob by user: Lars
+- Adoption application status updated for pet: Bob by user Lars. New status: submitted
+- Pet added to shelter: Moki
+- Adoption story added by user: Lars

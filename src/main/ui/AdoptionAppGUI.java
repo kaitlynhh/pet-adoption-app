@@ -1,6 +1,8 @@
 package ui;
 
 import model.AdoptApplication;
+import model.Event;
+import model.EventLog;
 import model.Pet;
 import model.Shelter;
 import model.User;
@@ -15,6 +17,9 @@ import java.awt.event.ActionListener;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 // Create an AdoptionApp GUI.
 // GUI extends JFrame
@@ -50,6 +55,13 @@ public class AdoptionAppGUI extends JFrame {
         loadImages();
         initUI();
         SwingUtilities.invokeLater(this::initializeCurrentUser);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                printEventLog(); // Print the log before exiting
+                super.windowClosing(e); // Ensure default behavior
+            }
+        });
 
     }
 
@@ -354,7 +366,7 @@ public class AdoptionAppGUI extends JFrame {
 
             currentUser = new User(name, role);
             displayArea.append("Welcome, " + name + " (" + role + ")!\n");
-
+            // add exception here
             // if (!name.isEmpty() && role != null) {
             //     currentUser = new User(name, role);
             //     displayArea.append("Welcome, " + name + " (" + role + ")!\n");
@@ -545,6 +557,15 @@ public class AdoptionAppGUI extends JFrame {
         JButton button = new JButton(text);
         button.addActionListener(action);
         return button;
+    }
+
+    private void printEventLog() {
+        System.out.println("Printing Event Log:");
+        // Example: Iterate through EventLog and print each event
+        EventLog log = EventLog.getInstance();
+        for (Event event : log) {
+            System.out.println(event);
+        }
     }
     
 
