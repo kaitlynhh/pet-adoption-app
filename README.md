@@ -52,3 +52,15 @@ Below is a sample log of events captured during application execution:
 - Adoption application status updated for pet: Bob by user Lars. New status: submitted
 - Pet added to shelter: Moki
 - Adoption story added by user: Lars
+
+## Phase 4: Task 3
+### Reflection on the Design
+
+The UML diagram represents my current design of the application. There are lots of opportunities to improve the
+maintainability, robustness, extensibility for this application.
+- First, in the pets class, it's adoption status, and gender, species can be "enum" insted of "string.
+By doing that, we can prevent the value being mistyped by the user, so we can avoid inconsistences and errors.
+We can do the same thing for the user's role and the application status as well.
+- Second, I found my code for AdoptionAppGUI has some redundency among some methods for creating panels and buttons. Also, the current GUI class handles multiple responsibilities in one single class. If I have more time, I will refactoring this GUI class. I will divide the class into smaller components, use delegation for common UI tasks. Also, I can create a new class to manage the menu of my main features. By doing these things, each class can handle less responsibilities, and it will be easier to debug.
+- Moreover, I can introduce abstract classes for action panel. In an abstract viewing class, I can include some shared behaviors for 'viewing available pets', 'viewing applications'. And also the corresponding concrete classes, 'viewing available pets' and 'viewing applications will extends this abstract viewing class. In an abstract submitting class, I can include some shared behaviors for submitting informations. Then create some concrete classes, 'submit applications', 'report stray pet', 'submit stories' and make them extends the abstract submitting class. By doing this, the GUI function can be more clear and concise. And it will be more flexible ( easier) if I want to add new features to this Application.
+
